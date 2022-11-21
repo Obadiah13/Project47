@@ -31,12 +31,13 @@
                   <Insets left="10.0" right="10.0" />
                </padding>
             </Label>
-            <TextField fx:id="weightGoalTextfield">
-               <padding>
-                  <Insets top="10.0" />
-               </padding>
-            </TextField>
+            <TextField fx:id="weightGoalTextfield" />
             <Button mnemonicParsing="false" onAction="#weightGoalPlan" text="Next" />
+            <Label fx:id="errorMessage">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </Label>
          </children>
       </HBox>
       <HBox prefHeight="58.0" prefWidth="232.0">
