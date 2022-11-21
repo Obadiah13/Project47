@@ -11,6 +11,7 @@ public class FitnessTrackerController {
 
     @FXML
     void weightGoalPlan(ActionEvent event) {
+    	
 
     }
 
