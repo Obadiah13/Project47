@@ -1,19 +1,26 @@
 package application;
 	
+import java.io.FileInputStream;
+
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 
 
 public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			BorderPane root = new BorderPane();
-			Scene scene = new Scene(root,400,400);
+			
+			FXMLLoader loader = new FXMLLoader();
+			VBox root = loader.load(new FileInputStream("src/application/FitnessTracker.fxml"));
+			Scene scene = new Scene(root,300,300);
 			
 			primaryStage.setScene(scene);
+			primaryStage.setTitle("Fitness Tracker");
 			primaryStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -21,25 +28,6 @@ public class Main extends Application {
 	}
 	
 	public static void main(String[] args) {
-		//.equals() -> important when comparing the chars by str
-		//.toCharArray() -> important to place the strings into char to compare to chars
-		
-		int counter = 0;
-		String str = "hello";
-		String chars = "hl";
-		
-		int totalChar = Integer.parseInt(str);
-		str.toCharArray();
-		chars.toCharArray();
-				
-		while(totalChar > 0) {
-			if(str.equals(chars)) {
-				System.out.println("Character " + str + " equals " + chars);
-				counter++;
-			}
-			totalChar--;
-		}
-				
-	System.out.println(counter + "Is how many characters appeared in " + str);
+		launch(args);
 	}
 }
