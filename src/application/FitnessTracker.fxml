@@ -7,7 +7,6 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.VBox?>
 
-
 <VBox prefHeight="273.0" prefWidth="399.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.FitnessTrackerController">
    <children>
       <HBox prefHeight="50.0" prefWidth="200.0">
@@ -32,12 +31,13 @@
                   <Insets left="10.0" right="10.0" />
                </padding>
             </Label>
-            <TextField>
+            <TextField fx:id="weightGoalTextfield" />
+            <Button mnemonicParsing="false" onAction="#weightGoalPlan" text="Confrim" />
+            <Label fx:id="errorMessage">
                <padding>
-                  <Insets top="10.0" />
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
-            </TextField>
-            <Button mnemonicParsing="false" text="Next" />
+            </Label>
          </children>
       </HBox>
       <HBox prefHeight="58.0" prefWidth="232.0">
@@ -47,7 +47,7 @@
                   <Insets left="10.0" right="10.0" />
                </padding>
             </Label>
-            <Button mnemonicParsing="false" text="Set Nutrition Plan" />
+            <Button mnemonicParsing="false" onAction="#nutritionPlan" text="Set Nutrition Plan" />
          </children>
       </HBox>
       <HBox prefHeight="58.0" prefWidth="232.0">
@@ -57,7 +57,16 @@
                   <Insets left="10.0" right="10.0" />
                </padding>
             </Label>
-            <Button mnemonicParsing="false" text="Set Excercise Plan" />
+            <Button mnemonicParsing="false" onAction="#excercisePlan" text="Set Excercise Plan" />
+         </children>
+      </HBox>
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#checkProgress" text="Check Progress">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Button>
          </children>
       </HBox>
    </children>
