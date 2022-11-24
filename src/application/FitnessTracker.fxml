@@ -60,5 +60,14 @@
             <Button mnemonicParsing="false" onAction="#excercisePlan" text="Set Excercise Plan" />
          </children>
       </HBox>
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#checkProgress" text="Check Progress">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
    </children>
 </VBox>
