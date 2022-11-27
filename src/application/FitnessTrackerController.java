@@ -14,52 +14,150 @@ import javafx.stage.Stage;
 
 public class FitnessTrackerController {
 	Stage applicationStage;
+	boolean loseWeight;
+	boolean gainWeight;
     
     @FXML
     private Label errorMessage;
+    
+    void sendToGoal(TextField gender, Label errorGender, TextField age, Label errorAge,TextField goal, Label error1, 
+    		TextField current, Label error2, TextField bodyFat, Label error3, TextField height, Label error4) {
+    	
+    	errorGender.setText("");
+    	errorAge.setText("");
+    	error1.setText("");
+    	error2.setText("");
+    	error3.setText("");
+    	error4.setText("");
+    	
+    	Goals userGoal = new Goals(0.00);
+    	String genderString = gender.getText();
+    	int ageValue = Integer.parseInt(age.getText());
+    	double weightValue = Double.parseDouble(goal.getText());
+    	double currentValue = Double.parseDouble(current.getText());
+    	double bodyFatValue = Double.parseDouble(bodyFat.getText());
+    	double heightValue = Double.parseDouble(height.getText());
+    	
+    	
+	    if(!(genderString instanceof String) || (!(genderString.equalsIgnoreCase("Male")) && 
+	    		!(genderString.equalsIgnoreCase("Female")) && !(genderString.equalsIgnoreCase("Other")))) {
+	    	errorGender.setText("Must be letters or input Male, Female, or Other");
+	    } else {
+	    	userGoal.setGender(genderString);
+	    }
+	    
+	    if(ageValue < 0) {
+	    	errorAge.setText("Invaild value: " + ageValue);
+	    } else {
+	    	userGoal.setAge(ageValue);	
+	    }
+	    
+    	if(weightValue < 0) {
+	    	error1.setText("Invaild value: " + weightValue);
+	    } else {
+	    	userGoal.setWeightGoal(weightValue);	
+	    }
+    	
+	    if(currentValue < 0) {
+	    	error2.setText("Invaild value: " + currentValue);
+	    } else {
+	    	userGoal.setCurrentWeight(weightValue);	
+	    }
+	    
+	    if(bodyFatValue < 0) {
+	    	error3.setText("Invaild value: " + bodyFatValue);
+	    } else {
+	    	userGoal.setBodyFat(bodyFatValue);	
+	    }
+	    
+	    if(heightValue < 0) {
+	    	error4.setText("Invaild value: " + heightValue);
+	    } else {
+	    	userGoal.setHeight(bodyFatValue);	
+	    }
+	    
+	    if(weightValue > currentValue) {
+	    	gainWeight = true;
+	    	loseWeight = false;
+	    } else if(weightValue < currentValue) {
+	    	loseWeight = true;
+	    	gainWeight = false;
+	    }
+    }
 
     @FXML
     void weightGoalPlan(ActionEvent event) {
     	errorMessage.setText("");
     	Scene mainScene = applicationStage.getScene();
-    	Goals userGoal = new Goals(0.00);
     	VBox weightVBox = new VBox();
+    	weightVBox.setMinWidth(700);
+    	
+    	HBox weightContainer5 = new HBox();
+    	Label weightLabel5 = new Label("What is your gender? Male, Female, or Other? ");
+    	weightLabel5.setPadding(new Insets(5,10,5,10));
+    	TextField gender = new TextField();
+    	Label errorMessage5 = new Label("");
+    	errorMessage5.setPadding(new Insets(5,10,5,10));
+    	
+    	HBox weightContainer6 = new HBox();
+    	Label weightLabel6 = new Label("What is your age? ");
+    	weightLabel6.setPadding(new Insets(5,10,5,10));
+    	TextField age = new TextField();
+    	Label errorMessage6 = new Label("");
+    	errorMessage6.setPadding(new Insets(5,10,5,10));
     	
     	HBox weightContainer = new HBox();
-    	Label weightLabel1 = new Label("What is your weight goal? ");
+    	Label weightLabel1 = new Label("What is your weight goal in Ibs? ");
     	weightLabel1.setPadding(new Insets(5,10,5,10));
     	TextField goalWeight = new TextField();
-    	
-    	/*
-    	double weightValue = Double.parseDouble(goalWeight.getText());
-    	if(weightValue < 0 || goalWeight.getText() == "") {
-    		errorMessage.setText("Invaild value: " + weightValue);
-    	} else {
-    		userGoal.setWeightGoal(weightValue);
-    	}
-    	*/
-    	
-    	
+    	Label errorMessage1 = new Label("");
+    	errorMessage1.setPadding(new Insets(5,10,5,10));
     	
     	HBox weightContainer2 = new HBox();
-    	Label weightLabel2 = new Label("What is your current weight? ");
+    	Label weightLabel2 = new Label("What is your current weight in Ibs? ");
     	weightLabel2.setPadding(new Insets(5,10,5,10));
     	TextField currentWeight = new TextField();
+    	Label errorMessage2 = new Label("");
+    	errorMessage2.setPadding(new Insets(5,10,5,10));
     	
-    	/*
-    	double currentWeightValue = Double.parseDouble(currentWeight.getText());
-    	if(currentWeightValue < 0 || currentWeight.getText() == "") {
-    		errorMessage.setText("Invaild value: " + currentWeightValue);
-    	} else {
-    		userGoal.setCurrentWeight(currentWeightValue);
-    	}
-    	*/
+    	HBox weightContainer3 = new HBox();
+    	Label weightLabel3 = new Label("What is your body fat percentage? ");
+    	weightLabel3.setPadding(new Insets(5,10,5,10));
+    	Label weightLabel3_1 = new Label("%");
+    	weightLabel3_1.setPadding(new Insets(5,3,5,1));
+    	TextField bodyFatPer = new TextField();
+    	Label errorMessage3 = new Label("");
+    	errorMessage3.setPadding(new Insets(5,3,5,3));
     	
+    	HBox weightContainer4 = new HBox();
+    	Label weightLabel4 = new Label("What is your height in ft?");
+    	weightLabel4.setPadding(new Insets(5,10,5,10));
+    	TextField heightT = new TextField();
+    	Label errorMessage4 = new Label("");
+    	errorMessage4.setPadding(new Insets(5,10,5,10));
     	
-    	weightContainer.getChildren().addAll(weightLabel1, goalWeight);
-    	weightContainer2.getChildren().addAll(weightLabel2, currentWeight);
+    	HBox buttonContainer = new HBox();
+    	Button send = new Button("Send Data");
+    	Button done = new Button("Done");
+    	send.setOnAction(doneEvent -> sendToGoal(gender,errorMessage5,age,errorMessage6,goalWeight,errorMessage1,
+    										currentWeight,errorMessage2, bodyFatPer,errorMessage3,heightT,errorMessage4));
+    	done.setOnAction(doneEvent -> applicationStage.setScene(mainScene));
+    	
+    	weightContainer.getChildren().addAll(weightLabel1,goalWeight,errorMessage1);
+    	weightContainer2.getChildren().addAll(weightLabel2,currentWeight,errorMessage2);
+    	weightContainer3.getChildren().addAll(weightLabel3,bodyFatPer,weightLabel3_1,errorMessage3);
+    	weightContainer4.getChildren().addAll(weightLabel4,heightT,errorMessage4);
+    	weightContainer5.getChildren().addAll(weightLabel5,gender,errorMessage5);
+    	weightContainer6.getChildren().addAll(weightLabel6,age,errorMessage6);
+    	buttonContainer.getChildren().addAll(send,done);
+    	
+    	weightVBox.getChildren().add(weightContainer5);
+    	weightVBox.getChildren().add(weightContainer6);
     	weightVBox.getChildren().add(weightContainer);
     	weightVBox.getChildren().add(weightContainer2);
+    	weightVBox.getChildren().add(weightContainer3);
+    	weightVBox.getChildren().add(weightContainer4);
+    	weightVBox.getChildren().add(buttonContainer);
     	
     	Scene weightScene = new Scene(weightVBox);
     	applicationStage.setScene(weightScene);
