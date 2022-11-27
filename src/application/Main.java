@@ -19,7 +19,7 @@ public class Main extends Application {
 			VBox root = loader.load(new FileInputStream("src/application/FitnessTracker.fxml"));
 			FitnessTrackerController controller = (FitnessTrackerController)loader.getController();
 			controller.applicationStage = primaryStage;
-			
+		
 			Scene scene = new Scene(root,500,300);
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("Fitness Tracker");
