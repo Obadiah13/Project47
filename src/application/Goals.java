@@ -3,11 +3,30 @@ package application;
 public class Goals extends FitnessTrackerController {
 //Setting goals that the user has, etc, goes into this class
 	double weightGoal;
+	double currentWeight;
+	double bodyFat;
+	String gender;
+	int age;
 	
 	public Goals(double w) { //User should input in pounds Ibs
 		if(w > 110) {
 			this.weightGoal = w;
 		} 
+	}
+	public int getAge() {
+		return this.age;
+	}
+	
+	public void setAge(int a) {
+		this.age = a;
+	}
+	
+	public String getGender() {
+		return this.gender;
+	}
+	
+	public void setGender(String g) {
+		this.gender = g;
 	}
 	
 	public double getWeightGoal() {
@@ -15,8 +34,32 @@ public class Goals extends FitnessTrackerController {
 	}
 	
 	public void setWeightGoal(double w) {
-		if(w > 110) {
-			this.weightGoal = w;
-		} 
+		this.weightGoal = w;
 	}
+	
+	public double getCurrentWeight() {
+		return this.currentWeight;
+	}
+	
+	public void setCurrentWeight(double c) {
+		this.currentWeight = c;
+	}
+	
+	public double getBodyFat() {
+		return this.bodyFat;
+	}
+	
+	public void setBodyFat(double b) {
+		this.bodyFat = b;
+	}
+	
+	public double getHeight() {
+		return this.bodyFat;
+	}
+	
+	public void setHeight(double h) {
+		this.bodyFat = h;
+	}
+	
+	
 }
