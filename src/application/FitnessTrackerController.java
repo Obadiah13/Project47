@@ -167,59 +167,90 @@ public class FitnessTrackerController {
     	
     }
     
-    void excercisePlan2(ChoiceBox<Integer> d, Scene mainScene) {
+    void savePlanCardio(TextField exerciseText, TextField exerciseText2, TextField exerciseText3) {
+    	Exercise exPlan = new Exercise();
+    	String typeExercise = exerciseText.getText();
+    	double minutes = Double.parseDouble(exerciseText2.getText());
+    	double caloriesBurned = Double.parseDouble(exerciseText3.getText());
+    	
+    	exPlan.savePlanCardioClass(typeExercise, minutes, caloriesBurned);
+    	System.out.println(typeExercise + " " +  minutes + " " + caloriesBurned);
+    	
+    }
+    
+    void checkPlanCardio(Scene mainScene) { //Keep this, grab data from exercise class, then display out
+    
+    }
+    
+    void exercisePlan2(ChoiceBox<String> userChoice) {
+    	String choice = userChoice.getValue();
     	VBox exerciseVBox = new VBox();
-    	HBox exerciseContainer = new HBox();
-    	Label exerciseLabel = new Label("How many excercises do you plan on doing on which day?");
-    	exerciseContainer.getChildren().addAll(exerciseLabel);
-    	exerciseVBox.getChildren().add(exerciseContainer);
+    	Scene mainScene = applicationStage.getScene();
     	
-    	int daysCount = 0;
-    	ArrayList<TextField> exercisesList = new ArrayList<TextField>();
-    	
-    	while(daysCount < d.getValue()) {
-    		HBox rowContainer = new HBox();
-    		Label exercisesL1 = new Label("Day:");
-    		Label exercisesL2 = new Label("Exercise:");
-    		TextField exercisesUserDay = new TextField();
-    		TextField exercisesRoutine = new TextField();
-    		exercisesList.add(exercisesRoutine);
+    	if(choice == "Cardiovascular") {
+    		//Ask user exercise to perform
+    		HBox exerciseContainer = new HBox();
+    		Label exerciseLabel = new Label("Enter Exercise: ");
+    		exerciseLabel.setPadding(new Insets(5,10,5,10));
+    		TextField exerciseText = new TextField();
     		
-    		rowContainer.getChildren().addAll(exercisesL1, exercisesUserDay, exercisesL2, exercisesRoutine);
-    		daysCount++;
+    		//Ask user how many minutes they want to do
+    		HBox exerciseContainer2 = new HBox();
+    		Label exerciseLabel2 = new Label("Minutes Performed: ");
+    		exerciseLabel2.setPadding(new Insets(5,10,5,10));
+    		TextField exerciseText2 = new TextField();
     		
-    		exerciseVBox.getChildren().add(rowContainer);
+    		//Ask user an estimate of how many calories they have burned
+    		HBox exerciseContainer3 = new HBox();
+    		Label exerciseLabel3 = new Label("Estimated Calories burned: ");
+    		exerciseLabel3.setPadding(new Insets(5,10,5,10));
+    		TextField exerciseText3 = new TextField();
+    		
+    		//This container is to save their plan in the exercise class
+    		HBox exerciseContainer4 = new HBox();
+    		Button savePlan = new Button("Save Plan");
+    		savePlan.setOnAction(doneEvent -> savePlanCardio(exerciseText,exerciseText2,exerciseText3));
+    		
+    		//This container to show their new plan 
+    		//Button checkPlan = new Button("Check Plan");
+    		//checkPlan.setOnAction(doneEvent -> checkPlanCardio(mainScene));
+    		
+    		exerciseContainer.getChildren().addAll(exerciseLabel, exerciseText);
+    		exerciseContainer2.getChildren().addAll(exerciseLabel2, exerciseText2);
+    		exerciseContainer3.getChildren().addAll(exerciseLabel3, exerciseText3);
+    		exerciseContainer4.getChildren().addAll(savePlan/*,checkPlan*/);
+    		exerciseVBox.getChildren().add(exerciseContainer);
+    		exerciseVBox.getChildren().add(exerciseContainer2);
+    		exerciseVBox.getChildren().add(exerciseContainer3);
+    		exerciseVBox.getChildren().add(exerciseContainer4);
+    		
+    		Scene exerciseScene = new Scene(exerciseVBox);
+    		applicationStage.setScene(exerciseScene);
+    		
+    	} else if(choice == "Strength") {
+    		
+    	} else if(choice == "Workout") {
+    		
     	}
     	
-    	Button done = new Button("done");
-    	done.setOnAction(doneEvent -> applicationStage.setScene(mainScene));
-    	exerciseVBox.getChildren().add(done);
-    	
-    	Scene exerciseVBoxScene = new Scene(exerciseVBox);
-    	applicationStage.setScene(exerciseVBoxScene);
     }
     
     @FXML
 	void excercisePlan(ActionEvent event) {
-    	
-    	Scene mainScene = applicationStage.getScene();
+    	//Scene mainScene = applicationStage.getScene();
     	VBox exerciseVBox = new VBox();
     	HBox exerciseContainer = new HBox();
-    	Label exerciseLabel = new Label("How many days to you want workout?");
+    	Label exerciseLabel = new Label("What type of exercises to you plan on doing?");
     	exerciseLabel.setPadding(new Insets(5,10,5,10));
-    	ChoiceBox<Integer> exerciseChoiceBox = new ChoiceBox<Integer>();
-    	//ArrayList<String> excercises = new ArrayList<String>();
-    	//int daysCount = 0;
+    	ChoiceBox<String> exerciseChoiceBox = new ChoiceBox<String>();
  
-    	for(int days = 0; days <= 7; days++) {
-    		exerciseChoiceBox.getItems().add(days);
-    		//daysCount++;
-    	}
+    	exerciseChoiceBox.getItems().add("Cardiovascular");
+    	exerciseChoiceBox.getItems().add("Strength");
+    	exerciseChoiceBox.getItems().add("Workout");
     	
-    	//Exercise a = new Exercise(daysCount);
     	
     	Button nextExcercisePlan = new Button("Next");
-    	nextExcercisePlan.setOnAction(doneEvent -> excercisePlan2(exerciseChoiceBox, mainScene));
+    	nextExcercisePlan.setOnAction(doneEvent -> exercisePlan2(exerciseChoiceBox));
     	
     	exerciseContainer.getChildren().addAll(exerciseLabel, exerciseChoiceBox, nextExcercisePlan);
     	exerciseVBox.getChildren().add(exerciseContainer);

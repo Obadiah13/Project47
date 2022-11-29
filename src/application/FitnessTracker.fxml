@@ -71,7 +71,7 @@
       </HBox>
       <HBox prefHeight="58.0" prefWidth="200.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#checkProgress" text="Check Progress">
+            <Button mnemonicParsing="false" onAction="#checkProgress" text="Make Plan">
                <HBox.margin>
                   <Insets />
                </HBox.margin>

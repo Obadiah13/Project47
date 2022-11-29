@@ -3,29 +3,26 @@ package application;
 import java.util.ArrayList;
 
 public class Exercise extends Goals {	//Stuff like workouts, steps taken, mental health, etc. goes into this class
-	private int days;
-	private ArrayList<String> exercises = new ArrayList<String>();
+	String cardio = "";
+	String strength = "";
+	String workoutRoutine = "";
+
+	/*
+	public Exercise(String c) {
+		if(c == "Cardiovascular") {
+			cardio = c;
+		} else if(c == "Strength") {
+			strength = c;
+		} else if(c == "Workout") {
+			workoutRoutine = c;
+		}
+	}
+	*/
 	
-	public Exercise(int d) {
-		days = d;
-		exercises = new ArrayList<String>();
+	public void savePlanCardioClass(String typeExercise, double min, double burned) {
+		
 	}
 	
-	public int getDays() {
-		return this.days;
-	}
-	
-	public void setDays(int d) {
-		days = d;
-	}
-	
-	public ArrayList<String> getExercises() {
-		return this.exercises;
-	}
-	
-	//public void setExercises(int d) {
-		//days = d;
-	//}
 	
 	
 }
