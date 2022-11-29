@@ -167,25 +167,53 @@ public class FitnessTrackerController {
     	
     }
     
-    void savePlanCardio(TextField exerciseText, TextField exerciseText2, TextField exerciseText3) {
-    	Exercise exPlan = new Exercise();
+    void savePlanCardio(Exercise exPlan, TextField exerciseText, TextField exerciseText2, TextField exerciseText3) {
+    	//Exercise exPlan = new Exercise();
     	String typeExercise = exerciseText.getText();
     	double minutes = Double.parseDouble(exerciseText2.getText());
     	double caloriesBurned = Double.parseDouble(exerciseText3.getText());
     	
     	exPlan.savePlanCardioClass(typeExercise, minutes, caloriesBurned);
-    	System.out.println(typeExercise + " " +  minutes + " " + caloriesBurned);
+    	System.out.println("Plan saved");
+    }
+    
+    void checkPlanCardio(Exercise exPlan, Scene m) { //Keep this, grab data from exercise class, then display out
+    	VBox cardioVBox = new VBox();
     	
+    	HBox exerciseContainer = new HBox();
+    	Label exerciseLabel = new Label(exPlan.getTypeExercise());
+    	exerciseLabel.setPadding(new Insets(5,10,5,10));
+    	
+    	HBox exerciseContainer2 = new HBox();
+    	Label exerciseLabel2 = new Label("Minutes: " + String.valueOf(exPlan.getMinutes()));
+    	exerciseLabel2.setPadding(new Insets(5,10,5,10));
+    	
+    	HBox exerciseContainer3 = new HBox();
+    	Label exerciseLabel3 = new Label("Calories Burned " + String.valueOf(exPlan.getCaloriesBurned()));
+    	exerciseLabel3.setPadding(new Insets(5,10,5,10));
+    	
+    	HBox exerciseContainer4 = new HBox();
+    	Button mainScreenButton = new Button("Back to main screen");
+    	mainScreenButton.setOnAction(doneEvent -> applicationStage.setScene(m));
+    	
+    	exerciseContainer.getChildren().addAll(exerciseLabel);
+    	exerciseContainer2.getChildren().addAll(exerciseLabel2);
+    	exerciseContainer3.getChildren().addAll(exerciseLabel3);
+    	exerciseContainer4.getChildren().addAll(mainScreenButton);
+    	cardioVBox.getChildren().add(exerciseContainer);
+    	cardioVBox.getChildren().add(exerciseContainer2);
+    	cardioVBox.getChildren().add(exerciseContainer3);
+    	cardioVBox.getChildren().add(mainScreenButton);
+    	
+    	Scene cardioScene = new Scene(cardioVBox);
+    	applicationStage.setScene(cardioScene);
     }
     
-    void checkPlanCardio(Scene mainScene) { //Keep this, grab data from exercise class, then display out
-    
-    }
-    
-    void exercisePlan2(ChoiceBox<String> userChoice) {
+    void exercisePlan2(ChoiceBox<String> userChoice, Scene mainScene) {
+    	Exercise exPlan = new Exercise();
     	String choice = userChoice.getValue();
     	VBox exerciseVBox = new VBox();
-    	Scene mainScene = applicationStage.getScene();
+    	//Scene mainScene = applicationStage.getScene();
     	
     	if(choice == "Cardiovascular") {
     		//Ask user exercise to perform
@@ -209,16 +237,16 @@ public class FitnessTrackerController {
     		//This container is to save their plan in the exercise class
     		HBox exerciseContainer4 = new HBox();
     		Button savePlan = new Button("Save Plan");
-    		savePlan.setOnAction(doneEvent -> savePlanCardio(exerciseText,exerciseText2,exerciseText3));
+    		savePlan.setOnAction(doneEvent -> savePlanCardio(exPlan,exerciseText,exerciseText2,exerciseText3));
     		
     		//This container to show their new plan 
-    		//Button checkPlan = new Button("Check Plan");
-    		//checkPlan.setOnAction(doneEvent -> checkPlanCardio(mainScene));
-    		
+    		Button checkPlan = new Button("Check Plan");
+        	checkPlan.setOnAction(doneEvent -> checkPlanCardio(exPlan, mainScene));
+        	
     		exerciseContainer.getChildren().addAll(exerciseLabel, exerciseText);
     		exerciseContainer2.getChildren().addAll(exerciseLabel2, exerciseText2);
     		exerciseContainer3.getChildren().addAll(exerciseLabel3, exerciseText3);
-    		exerciseContainer4.getChildren().addAll(savePlan/*,checkPlan*/);
+    		exerciseContainer4.getChildren().addAll(savePlan,checkPlan);
     		exerciseVBox.getChildren().add(exerciseContainer);
     		exerciseVBox.getChildren().add(exerciseContainer2);
     		exerciseVBox.getChildren().add(exerciseContainer3);
@@ -237,7 +265,7 @@ public class FitnessTrackerController {
     
     @FXML
 	void excercisePlan(ActionEvent event) {
-    	//Scene mainScene = applicationStage.getScene();
+    	Scene mainScene = applicationStage.getScene();
     	VBox exerciseVBox = new VBox();
     	HBox exerciseContainer = new HBox();
     	Label exerciseLabel = new Label("What type of exercises to you plan on doing?");
@@ -250,14 +278,13 @@ public class FitnessTrackerController {
     	
     	
     	Button nextExcercisePlan = new Button("Next");
-    	nextExcercisePlan.setOnAction(doneEvent -> exercisePlan2(exerciseChoiceBox));
+    	nextExcercisePlan.setOnAction(doneEvent -> exercisePlan2(exerciseChoiceBox, mainScene));
     	
     	exerciseContainer.getChildren().addAll(exerciseLabel, exerciseChoiceBox, nextExcercisePlan);
     	exerciseVBox.getChildren().add(exerciseContainer);
     	
     	Scene excerciseScene = new Scene(exerciseVBox);
     	applicationStage.setScene(excerciseScene);
-    	
 	}
     
     @FXML
