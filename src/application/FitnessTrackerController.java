@@ -1,5 +1,7 @@
 package application;
 
+import java.util.ArrayList;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -14,8 +16,9 @@ import javafx.stage.Stage;
 
 public class FitnessTrackerController {
 	Stage applicationStage;
-	boolean loseWeight;
-	boolean gainWeight;
+	private boolean loseWeight;
+	private boolean gainWeight;
+	//private Goals userGoal = new Goals();
     
     @FXML
     private Label errorMessage;
@@ -30,7 +33,7 @@ public class FitnessTrackerController {
     	error3.setText("");
     	error4.setText("");
     	
-    	Goals userGoal = new Goals(0.00);
+    	Goals userGoal = new Goals();
     	String genderString = gender.getText();
     	int ageValue = Integer.parseInt(age.getText());
     	double weightValue = Double.parseDouble(goal.getText());
@@ -163,20 +166,65 @@ public class FitnessTrackerController {
     	applicationStage.setScene(weightScene);
     	
     }
+    
+    void excercisePlan2(ChoiceBox<Integer> d, Scene mainScene) {
+    	VBox exerciseVBox = new VBox();
+    	HBox exerciseContainer = new HBox();
+    	Label exerciseLabel = new Label("How many excercises do you plan on doing on which day?");
+    	exerciseContainer.getChildren().addAll(exerciseLabel);
+    	exerciseVBox.getChildren().add(exerciseContainer);
+    	
+    	int daysCount = 0;
+    	ArrayList<TextField> exercisesList = new ArrayList<TextField>();
+    	
+    	while(daysCount < d.getValue()) {
+    		HBox rowContainer = new HBox();
+    		Label exercisesL1 = new Label("Day:");
+    		Label exercisesL2 = new Label("Exercise:");
+    		TextField exercisesUserDay = new TextField();
+    		TextField exercisesRoutine = new TextField();
+    		exercisesList.add(exercisesRoutine);
+    		
+    		rowContainer.getChildren().addAll(exercisesL1, exercisesUserDay, exercisesL2, exercisesRoutine);
+    		daysCount++;
+    		
+    		exerciseVBox.getChildren().add(rowContainer);
+    	}
+    	
+    	Button done = new Button("done");
+    	done.setOnAction(doneEvent -> applicationStage.setScene(mainScene));
+    	exerciseVBox.getChildren().add(done);
+    	
+    	Scene exerciseVBoxScene = new Scene(exerciseVBox);
+    	applicationStage.setScene(exerciseVBoxScene);
+    }
+    
     @FXML
 	void excercisePlan(ActionEvent event) {
     	
-    	HBox excerciseContainer = new HBox();
-    	Label excerciseLabel = new Label("How many days to do wanna workout?");
-    	excerciseLabel.setPadding(new Insets(5,10,5,10));
-    	ChoiceBox<Integer> excerciseChoiceBox = new ChoiceBox<Integer>();
+    	Scene mainScene = applicationStage.getScene();
+    	VBox exerciseVBox = new VBox();
+    	HBox exerciseContainer = new HBox();
+    	Label exerciseLabel = new Label("How many days to you want workout?");
+    	exerciseLabel.setPadding(new Insets(5,10,5,10));
+    	ChoiceBox<Integer> exerciseChoiceBox = new ChoiceBox<Integer>();
+    	//ArrayList<String> excercises = new ArrayList<String>();
+    	//int daysCount = 0;
  
     	for(int days = 0; days <= 7; days++) {
-    		excerciseChoiceBox.getItems().add(days);
+    		exerciseChoiceBox.getItems().add(days);
+    		//daysCount++;
     	}
     	
-    	excerciseContainer.getChildren().addAll(excerciseLabel, excerciseChoiceBox);
-    	Scene excerciseScene = new Scene(excerciseContainer);
+    	//Exercise a = new Exercise(daysCount);
+    	
+    	Button nextExcercisePlan = new Button("Next");
+    	nextExcercisePlan.setOnAction(doneEvent -> excercisePlan2(exerciseChoiceBox, mainScene));
+    	
+    	exerciseContainer.getChildren().addAll(exerciseLabel, exerciseChoiceBox, nextExcercisePlan);
+    	exerciseVBox.getChildren().add(exerciseContainer);
+    	
+    	Scene excerciseScene = new Scene(exerciseVBox);
     	applicationStage.setScene(excerciseScene);
     	
 	}

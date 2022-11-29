@@ -41,22 +41,22 @@
       </HBox>
       <HBox prefHeight="58.0" prefWidth="232.0">
          <children>
+            <Label text="Activity Plan:">
+               <padding>
+                  <Insets left="10.0" right="10.0" />
+               </padding>
+            </Label>
+            <Button mnemonicParsing="false" onAction="#excercisePlan" text="Set Activity Plan" />
+         </children>
+      </HBox>
+      <HBox prefHeight="58.0" prefWidth="232.0">
+         <children>
             <Label text="Nutrition Plan:">
                <padding>
                   <Insets left="10.0" right="10.0" />
                </padding>
             </Label>
             <Button mnemonicParsing="false" onAction="#nutritionPlan" text="Set Nutrition Plan" />
-         </children>
-      </HBox>
-      <HBox prefHeight="58.0" prefWidth="232.0">
-         <children>
-            <Label text="Excercise Plan:">
-               <padding>
-                  <Insets left="10.0" right="10.0" />
-               </padding>
-            </Label>
-            <Button mnemonicParsing="false" onAction="#excercisePlan" text="Set Excercise Plan" />
          </children>
       </HBox>
       <HBox prefHeight="58.0" prefWidth="232.0">

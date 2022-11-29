@@ -7,12 +7,8 @@ public class Goals extends FitnessTrackerController {
 	double bodyFat;
 	String gender;
 	int age;
+
 	
-	public Goals(double w) { //User should input in pounds Ibs
-		if(w > 110) {
-			this.weightGoal = w;
-		} 
-	}
 	public int getAge() {
 		return this.age;
 	}
