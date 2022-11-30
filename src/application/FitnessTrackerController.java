@@ -167,13 +167,16 @@ public class FitnessTrackerController {
     	
     }
     
+    /*Methods involving Cardio*/
+    
+    
     void savePlanCardio(Exercise exPlan, TextField exerciseText, TextField exerciseText2, TextField exerciseText3) {
     	//Exercise exPlan = new Exercise();
     	String typeExercise = exerciseText.getText();
     	double minutes = Double.parseDouble(exerciseText2.getText());
     	double caloriesBurned = Double.parseDouble(exerciseText3.getText());
     	
-    	exPlan.savePlanCardioClass(typeExercise, minutes, caloriesBurned);
+    	exPlan.savePlanClass(typeExercise, minutes, caloriesBurned);
     	System.out.println("Plan saved");
     }
     
@@ -208,6 +211,146 @@ public class FitnessTrackerController {
     	Scene cardioScene = new Scene(cardioVBox);
     	applicationStage.setScene(cardioScene);
     }
+   
+    /*Method's involving Strength*/
+    
+    
+    void savePlanStrength(Exercise exPlan, TextField description, TextField sets, TextField Reps) {
+    	String descriptionExercise = description.getText();
+    	int numberOfSets = Integer.parseInt(sets.getText());
+    	int numberOfReps = Integer.parseInt(Reps.getText());
+    	
+    	exPlan.savePlanClass(descriptionExercise, numberOfSets, numberOfReps);
+    	System.out.println("Plan Strength Saved");
+    }
+    
+    void checkPlanStrength(Exercise exPlan, Scene m) { //Keep this, grab data from exercise class, then display out
+    	VBox strengthVBox = new VBox();
+    	
+    	HBox exerciseContainer = new HBox();
+    	Label exerciseLabel = new Label(exPlan.getDescription());
+    	exerciseLabel.setPadding(new Insets(5,10,5,10));
+    	
+    	HBox exerciseContainer2 = new HBox();
+    	Label exerciseLabel2 = new Label("Number of Sets: " + String.valueOf(exPlan.getSets()));
+    	exerciseLabel2.setPadding(new Insets(5,10,5,10));
+    	
+    	HBox exerciseContainer3 = new HBox();
+    	Label exerciseLabel3 = new Label("Number of Reps " + String.valueOf(exPlan.getReps()));
+    	exerciseLabel3.setPadding(new Insets(5,10,5,10));
+    	
+    	HBox exerciseContainer4 = new HBox();
+    	Button mainScreenButton = new Button("Back to main screen");
+    	mainScreenButton.setOnAction(doneEvent -> applicationStage.setScene(m));
+    	
+    	exerciseContainer.getChildren().addAll(exerciseLabel);
+    	exerciseContainer2.getChildren().addAll(exerciseLabel2);
+    	exerciseContainer3.getChildren().addAll(exerciseLabel3);
+    	exerciseContainer4.getChildren().addAll(mainScreenButton);
+    	strengthVBox.getChildren().add(exerciseContainer);
+    	strengthVBox.getChildren().add(exerciseContainer2);
+    	strengthVBox.getChildren().add(exerciseContainer3);
+    	strengthVBox.getChildren().add(mainScreenButton);
+    	
+    	Scene strengthScene = new Scene(strengthVBox);
+    	applicationStage.setScene(strengthScene);
+    }
+    
+    
+    /*Workout related methods*/
+    
+    void savePlanWorkout(Exercise exPlan, ArrayList<TextField> exercise, ArrayList<TextField> Ibs, ArrayList<TextField> reps) {
+    	exPlan.savePlanClass(exercise, Ibs, reps);
+    	System.out.println("Save Plan Workout");
+    }
+    
+    void checkPlanWorkout(Exercise exPlan, Scene mainScene) {
+    	VBox workoutVBox = new VBox();
+    	ArrayList<TextField> exerciseList = exPlan.getExerciseWorkout();
+    	ArrayList<TextField> IbsList = exPlan.getIbs();
+    	ArrayList<TextField> repsList = exPlan.getRepsWorkout();
+    	
+    	for(int i = 0; i < exerciseList.size(); i++) {
+    		HBox exerciseContainer = new HBox();
+	    	Label exerciseLabel = new Label("Exercise: " + exerciseList.get(i).getText());
+	    	exerciseLabel.setPadding(new Insets(3,10,3,10));
+	    	
+	    	HBox exerciseContainer2 = new HBox();
+	    	Label exerciseLabel2 = new Label("Ibs: " + IbsList.get(i).getText());
+	    	exerciseLabel2.setPadding(new Insets(0,10,3,10));
+	    	Label exerciseLabel3 = new Label("Reps: " + repsList.get(i).getText());
+	    	exerciseLabel3.setPadding(new Insets(0,10,3,10));
+	    
+	    	exerciseContainer.getChildren().addAll(exerciseLabel);
+	    	workoutVBox.getChildren().add(exerciseContainer);
+	    	exerciseContainer2.getChildren().addAll(exerciseLabel2,exerciseLabel3);
+	    	workoutVBox.getChildren().add(exerciseContainer2);
+    	}
+    	 	
+    	HBox exerciseContainer3 = new HBox();
+    	Button returnToMainScreen = new Button("Return to Main Screen");
+    	returnToMainScreen.setOnAction(doneEvent -> applicationStage.setScene(mainScene));
+    	exerciseContainer3.getChildren().addAll(returnToMainScreen);
+    	workoutVBox.getChildren().add(exerciseContainer3);
+    	
+    	Scene workoutScene = new Scene(workoutVBox);
+    	applicationStage.setScene(workoutScene);
+    }
+    
+    void workoutRoutine(Exercise exPlan, Scene mainScene, TextField sets) {
+    	int numberOfSets = Integer.parseInt(sets.getText());
+    	int rows = 0;
+    	VBox workoutRoutineVBox = new VBox();
+    	
+    	ArrayList<TextField> exerciseTextArray = new ArrayList<TextField>();
+    	ArrayList<TextField> IbsTextArray = new ArrayList<TextField>();
+    	ArrayList<TextField> repsTextArray = new ArrayList<TextField>();
+    	
+    	while(rows < numberOfSets) {
+    		HBox rowContainer = new HBox();
+    		Label exerciseLabel = new Label("Enter Exercise");
+    		exerciseLabel.setPadding(new Insets(5,10,5,10));
+    		TextField exerciseTextField = new TextField();
+    		exerciseTextField.setPadding(new Insets(0,0,1,0));
+    		
+    		HBox rowContainerIbsSets = new HBox();
+    		Label exerciseIbsLabel = new Label("Enter Ibs");
+    		exerciseIbsLabel.setPadding(new Insets(5,10,5,10));
+    		TextField exerciseIbsTextField = new TextField();
+    		exerciseIbsTextField.setPadding(new Insets(0,0,1,0));
+    		
+    		Label exerciseRepsLabel = new Label("Enter Reps");
+    		exerciseRepsLabel.setPadding(new Insets(5,10,5,10));
+    		TextField exerciseRepsTextField = new TextField();
+    		exerciseRepsTextField.setPadding(new Insets(0,0,1,0));
+    		
+    		exerciseTextArray.add(exerciseTextField);
+    		IbsTextArray.add(exerciseIbsTextField);
+    		repsTextArray.add(exerciseRepsTextField);
+    		
+    		rowContainer.getChildren().addAll(exerciseLabel, exerciseTextField);
+    		rowContainerIbsSets.getChildren().addAll(exerciseIbsLabel, exerciseIbsTextField, exerciseRepsLabel, exerciseRepsTextField);
+    		rows++;
+    		
+    		workoutRoutineVBox.getChildren().add(rowContainer);
+    		workoutRoutineVBox.getChildren().add(rowContainerIbsSets);
+    	
+    	}
+    	
+    	HBox exerciseContainer= new HBox();
+		Button savePlan = new Button("Save Plan");
+		Button checkPlan = new Button("Check Plan");
+		savePlan.setOnAction(doneEvent -> savePlanWorkout(exPlan,exerciseTextArray,IbsTextArray,repsTextArray));
+		checkPlan.setOnAction(doneEvent -> checkPlanWorkout(exPlan,mainScene));
+		exerciseContainer.getChildren().addAll(savePlan,checkPlan);
+		
+		workoutRoutineVBox.getChildren().add(exerciseContainer);
+		
+		Scene workoutScene = new Scene(workoutRoutineVBox);
+		applicationStage.setScene(workoutScene);
+    	
+    }
+    /*Initial stages of asking the user's workouts*/
     
     void exercisePlan2(ChoiceBox<String> userChoice, Scene mainScene) {
     	Exercise exPlan = new Exercise();
@@ -256,11 +399,62 @@ public class FitnessTrackerController {
     		applicationStage.setScene(exerciseScene);
     		
     	} else if(choice == "Strength") {
+    		//Ask user exercise to perform
+    		HBox exerciseContainer5 = new HBox();
+    		Label exerciseLabel5 = new Label("Enter desciption of your Exercise: ");
+    		exerciseLabel5.setPadding(new Insets(5,10,5,10));
+    		TextField exerciseText5 = new TextField();
+    		
+    		//Ask user exercise to perform
+    		HBox exerciseContainer6 = new HBox();
+    		Label exerciseLabel6 = new Label("Enter number of Sets: ");
+    		exerciseLabel6.setPadding(new Insets(5,10,5,10));
+    		TextField exerciseText6 = new TextField();
+    		
+    		//Ask user exercise to perform
+    		HBox exerciseContainer7 = new HBox();
+    		Label exerciseLabel7 = new Label("Enter Reps: ");
+    		exerciseLabel7.setPadding(new Insets(5,10,5,10));
+    		TextField exerciseText7 = new TextField();
+    		
+    		HBox exerciseContainer8 = new HBox();
+    		Button savePlan = new Button("Save Plan");
+    		savePlan.setOnAction(doneEvent -> savePlanStrength(exPlan,exerciseText5,exerciseText6,exerciseText7));
+    		
+    		Button checkPlan = new Button("Check Plan");
+    		checkPlan.setOnAction(doneEvent -> checkPlanStrength(exPlan, mainScene));
+    		
+    		exerciseContainer5.getChildren().addAll(exerciseLabel5,exerciseText5);
+    		exerciseContainer6.getChildren().addAll(exerciseLabel6,exerciseText6);
+    		exerciseContainer7.getChildren().addAll(exerciseLabel7,exerciseText7);
+    		exerciseContainer8.getChildren().addAll(savePlan,checkPlan);
+    		exerciseVBox.getChildren().add(exerciseContainer5);
+    		exerciseVBox.getChildren().add(exerciseContainer6);
+    		exerciseVBox.getChildren().add(exerciseContainer7);
+    		exerciseVBox.getChildren().add(exerciseContainer8);
+    		
+    		Scene exerciseScene2 = new Scene(exerciseVBox);
+    		applicationStage.setScene(exerciseScene2);
     		
     	} else if(choice == "Workout") {
+    		HBox exerciseContainer9 = new HBox();
+    		Label exerciseLabel9 = new Label("Enter Number Of Sets: ");
+    		exerciseLabel9.setPadding(new Insets(5,10,5,10));
+    		TextField exerciseText9 = new TextField();
     		
+    		HBox exerciseContainer10 = new HBox();
+    		Button next = new Button("Next");
+    		next.setOnAction(doneEvent -> workoutRoutine(exPlan,mainScene,exerciseText9));
+    		
+    		exerciseContainer9.getChildren().addAll(exerciseLabel9, exerciseText9);
+    		exerciseContainer10.getChildren().addAll(next);
+    		
+    		exerciseVBox.getChildren().add(exerciseContainer9);
+    		exerciseVBox.getChildren().add(exerciseContainer10);
+    		
+    		Scene workout = new Scene(exerciseVBox);
+    		applicationStage.setScene(workout);
     	}
-    	
     }
     
     @FXML
