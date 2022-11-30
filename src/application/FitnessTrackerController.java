@@ -1,9 +1,13 @@
 package application;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -18,6 +22,8 @@ public class FitnessTrackerController {
 	Stage applicationStage;
 	private boolean loseWeight;
 	private boolean gainWeight;
+	
+	
 	//private Goals userGoal = new Goals();
     
     @FXML
@@ -230,8 +236,14 @@ public class FitnessTrackerController {
 	}
     
     @FXML
-    void nutritionPlan(ActionEvent event) {
-    	//System.out.println("nutritionPlan was clicked");
+    void nutritionPlan(ActionEvent event) throws FileNotFoundException, IOException {
+    	FXMLLoader loader = new FXMLLoader();
+		VBox nutritionVBox = loader.load(new FileInputStream("src/application/Nutrition.fxml"));
+    	Scene nutritionScene = new Scene(nutritionVBox);
+
+		applicationStage.setScene(nutritionScene);
+		
+		
 
     }
     
