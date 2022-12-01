@@ -4,7 +4,8 @@ import java.util.ArrayList;
 
 import javafx.scene.control.TextField;
 
-public class Exercise extends Goals {	//Stuff like workouts, steps taken, mental health, etc. goes into this class
+public class Exercise /*extends Goals*/ {	//Stuff like workouts, steps taken, mental health, etc. goes into this class
+
 	private String typeExercise;
 	private double minutes;
 	private double caloriesBurned;

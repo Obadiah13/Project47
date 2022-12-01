@@ -2,13 +2,20 @@ package application;
 
 public class Goals extends FitnessTrackerController {
 //Setting goals that the user has, etc, goes into this class
-	double weightGoal;
-	double currentWeight;
-	double bodyFat;
-	String gender;
-	int age;
-
+	private String goalWeight;
+	private double currentWeight;
 	
+
+	public Goals(String goalValue, double currentValue) {
+		goalWeight = goalValue;
+		currentWeight = currentValue;
+	}
+	
+	
+	
+	
+	//Dw about all this code below, old stuff
+	/*
 	public int getAge() {
 		return this.age;
 	}
@@ -56,6 +63,6 @@ public class Goals extends FitnessTrackerController {
 	public void setHeight(double h) {
 		this.bodyFat = h;
 	}
-	
+	*/
 	
 }
