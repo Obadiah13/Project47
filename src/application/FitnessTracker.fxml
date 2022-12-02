@@ -26,17 +26,27 @@
       </HBox>
       <HBox prefHeight="58.0" prefWidth="232.0">
          <children>
-            <Label text="Weight Goal:">
+            <Label text="Goals Plan:">
                <padding>
                   <Insets left="10.0" right="10.0" />
                </padding>
             </Label>
-            <Button mnemonicParsing="false" onAction="#weightGoalPlan" text="Set Weight Goal" />
+            <Button mnemonicParsing="false" onAction="#weightGoalPlan" text="Set Goals" />
             <Label fx:id="errorMessage">
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
             </Label>
+         </children>
+      </HBox>
+      <HBox prefHeight="58.0" prefWidth="232.0">
+         <children>
+            <Label text="Activity Plan:">
+               <padding>
+                  <Insets left="10.0" right="10.0" />
+               </padding>
+            </Label>
+            <Button mnemonicParsing="false" onAction="#excercisePlan" text="Set Activity Plan" />
          </children>
       </HBox>
       <HBox prefHeight="58.0" prefWidth="232.0">
@@ -49,29 +59,9 @@
             <Button mnemonicParsing="false" onAction="#nutritionPlan" text="Set Nutrition Plan" />
          </children>
       </HBox>
-      <HBox prefHeight="58.0" prefWidth="232.0">
-         <children>
-            <Label text="Excercise Plan:">
-               <padding>
-                  <Insets left="10.0" right="10.0" />
-               </padding>
-            </Label>
-            <Button mnemonicParsing="false" onAction="#excercisePlan" text="Set Excercise Plan" />
-         </children>
-      </HBox>
-      <HBox prefHeight="58.0" prefWidth="232.0">
-         <children>
-            <Label text="Sleep Plan:">
-               <padding>
-                  <Insets left="10.0" right="10.0" />
-               </padding>
-            </Label>
-            <Button mnemonicParsing="false" text="Set Sleep Plan" />
-         </children>
-      </HBox>
       <HBox prefHeight="58.0" prefWidth="200.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#checkProgress" text="Check Progress">
+            <Button mnemonicParsing="false" onAction="#checkProgress" text="Make Plan">
                <HBox.margin>
                   <Insets />
                </HBox.margin>

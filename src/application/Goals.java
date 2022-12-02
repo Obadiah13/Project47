@@ -2,17 +2,38 @@ package application;
 
 public class Goals extends FitnessTrackerController {
 //Setting goals that the user has, etc, goes into this class
-	double weightGoal;
-	double currentWeight;
-	double bodyFat;
-	String gender;
-	int age;
+	private String goalWeight;
+	private double currentWeight;
 	
-	public Goals(double w) { //User should input in pounds Ibs
-		if(w > 110) {
-			this.weightGoal = w;
-		} 
+
+	public Goals(String goalValue, double currentValue) {
+		goalWeight = goalValue;
+		currentWeight = currentValue;
 	}
+	
+	public Goals() {
+		
+	}
+	
+	public double CurrentWeightKg() {
+		double currentWeightKg = currentWeight*0.453592;
+		return currentWeightKg;
+	}
+	
+	public double getRandomNumber() {
+		double randomNumber = (Math.random() * (0.02 - 0.01)) + 0.01;
+		return randomNumber;
+	}
+	
+	public String getGoalWeight() {
+		return goalWeight;
+	}
+	
+	public double getCurrentWeight() {
+		return currentWeight;
+	}
+	//Dw about all this code below, old stuff
+	/*
 	public int getAge() {
 		return this.age;
 	}
@@ -60,6 +81,6 @@ public class Goals extends FitnessTrackerController {
 	public void setHeight(double h) {
 		this.bodyFat = h;
 	}
-	
+	*/
 	
 }
