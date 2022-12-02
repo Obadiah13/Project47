@@ -11,9 +11,27 @@ public class Goals extends FitnessTrackerController {
 		currentWeight = currentValue;
 	}
 	
+	public Goals() {
+		
+	}
 	
+	public double CurrentWeightKg() {
+		double currentWeightKg = currentWeight*0.453592;
+		return currentWeightKg;
+	}
 	
+	public double getRandomNumber() {
+		double randomNumber = (Math.random() * (0.02 - 0.01)) + 0.01;
+		return randomNumber;
+	}
 	
+	public String getGoalWeight() {
+		return goalWeight;
+	}
+	
+	public double getCurrentWeight() {
+		return currentWeight;
+	}
 	//Dw about all this code below, old stuff
 	/*
 	public int getAge() {
