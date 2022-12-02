@@ -5,6 +5,8 @@ public class Goals extends FitnessTrackerController {
 	private String goalWeight;
 	private double currentWeight;
 	
+	
+	
 
 	public Goals(String goalValue, double currentValue) {
 		goalWeight = goalValue;
