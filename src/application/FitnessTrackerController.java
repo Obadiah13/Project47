@@ -1,8 +1,14 @@
 package application;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -12,11 +18,22 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class FitnessTrackerController {
+public class FitnessTrackerController implements Nutrition {
 	Stage applicationStage;
 	private String gender = "";	//Keep note of their gender
 	private double BMRM = 0.00;	//Keep note of their BMR for a Male
 	private double BMRF = 0.00;	//Keep note of their BMR for a Female
+    private String weightGoal = "";
+   
+	public double getCalories() {
+		double calories = 0; 
+		if(this.gender.equalsIgnoreCase("Male")) {
+	    	calories = BMRM;
+	    } else if(this.gender.equalsIgnoreCase("Female")) {
+	    	calories = BMRF;
+	    }
+		return calories;
+	}
 	
     @FXML
     private Label errorMessage;
@@ -90,12 +107,12 @@ public class FitnessTrackerController {
     	HBox buttonContainer = new HBox();
     	Button send = new Button("Send Data");
     	Button done = new Button("Done");
-    	Label sendSavedLabel = new Label("");
-    	sendSavedLabel.setPadding(new Insets(5,10,5,10));
-    	send.setOnAction(doneEvent -> sendToGoal(gender,errorMessage5,age,errorMessage6,goalChoiceBox,errorMessage1,
-    										currentWeight,errorMessage2,heightFT,heightIN,errorMessage3,sendSavedLabel));	//Sending all necessary TextFields and error Labels
-    	done.setOnAction(doneEvent -> applicationStage.setScene(mainScene));
-    	
+      
+    	send.setOnAction(doneEvent -> {sendToGoal(gender,errorMessage5,age,errorMessage6,goalChoiceBox,errorMessage1,
+    										currentWeight,errorMessage2,heightFT,heightIN,errorMessage3);
+    	weightGoal = goalChoiceBox.getValue();
+    	});//Sending all necessary TextFields and error Labels
+   	
     	//Each HBox container adding all their components, respectively
     	weightContainer.getChildren().addAll(weightLabel1,goalChoiceBox,errorMessage1); 
     	weightContainer2.getChildren().addAll(weightLabel2,currentWeight,errorMessage2);
@@ -248,13 +265,53 @@ public class FitnessTrackerController {
     	}
     }
     
+//    void saveNutrition(ChoiceBox<String> userChoice, Label choiceLabel) {
+//    	//Saves the user's activity choice and sends that data to required class and method
+//    	String choice = userChoice.getValue();
+//    	Nutrition nutritionClass = new Nutrition(choice);	//Sends the user choice to Nutrition class
+////    	BMRCalculation2(nutritionClass);	//Sends Exercise class to BMRCalculation2 method
+//    	
+//    	choiceLabel.setText("Nurtiton Choice Saved"); //Notifies user that their activity choice is saved
+//    }
     
     @FXML
     void nutritionPlan(ActionEvent event) {	//Nothing yet. Assuming carbohydrates/protein/fats are required here
-    
+    	Scene mainScene = applicationStage.getScene();
+    	VBox nutritionVBox = new VBox();
+    	HBox nutritionContainter = new HBox();
+    	Label nutritionLabel = new Label("What are your nutrition preferences?");	//Invokes user of their activity routine/consistency
+    	nutritionLabel.setPadding(new Insets(5,10,5,10));
+    	ChoiceBox<String> nutritionChoiceBox = new ChoiceBox<String>();	//Give them a list of choices that matches their activity routine
+    	
+    	nutritionChoiceBox.getItems().add("Struggling with low metabolism: Low Carb");	//Times 1.2
+    	nutritionChoiceBox.getItems().add("Concerned about heart health: Low Fat");
+    	nutritionChoiceBox.getItems().add("Looking to gain muscle: High Protien");
+    	
+    	//A button that saves the user's nutrition choice and sends the data to saveExercise method
+    	Button nextNutritonPlan = new Button("Save Choice");
+    	Label choiceIsSaved = new Label();
+    	choiceIsSaved.setPadding(new Insets(5,10,5,10));
+    	nextNutritonPlan.setOnAction(doneEvent -> saveExercise(nutritionChoiceBox,choiceIsSaved));
+    	
+    	//A button that has the user return to the main screen
+    	HBox returnContainer = new HBox();
+    	Button returnToMainScreen = new Button("Return to main Screen");
+    	returnToMainScreen.setOnAction(doneEvent -> applicationStage.setScene(mainScene));
+    	
+    	//Collects and distribute all assets to the respective HBox 
+    	nutritionContainter.getChildren().addAll(nutritionLabel,nutritionChoiceBox);
+    	returnContainer.getChildren().addAll(nextNutritonPlan,returnToMainScreen,choiceIsSaved);
+    	
+    	//Add all HBox into the VBox
+    	nutritionVBox.getChildren().add(nutritionContainter);
+    	nutritionVBox.getChildren().add(returnContainer);
+    	
+    	//Display this method Scene
+    	Scene nutritionScene = new Scene(nutritionVBox);
+    	applicationStage.setScene(nutritionScene);
     }
     
-    //Last step in the process
+//    Last step in the process
     @FXML
     void checkProgress(ActionEvent event) {
     	Scene mainScene = applicationStage.getScene();
@@ -263,6 +320,13 @@ public class FitnessTrackerController {
 	    HBox checkProgessBMR = new HBox();
 	    Label BMRLabel = new Label("");
 	    BMRLabel.setPadding(new Insets(5,10,5,10));
+	    Label proteinLabel = new Label("");
+	    proteinLabel.setPadding(new Insets(5,10,5,10));
+	    Label carbsLabel = new Label("");
+	    carbsLabel.setPadding(new Insets(5,10,5,10));
+	    Label fatsLabel = new Label("");
+	    fatsLabel.setPadding(new Insets(5,10,5,10));
+	    
 	    
 	    //Displays ideal BMR/Calorie count required from their data, rounds to nearest whole number
 	    if(this.gender.equalsIgnoreCase("Male")) {
@@ -271,8 +335,14 @@ public class FitnessTrackerController {
 	    	BMRLabel.setText("Your BMR or daily calorie count intake is: " + Math.round(BMRF) + "Calories/Day");
 	    }
 	    
+	    // Displays ideal quantities of macro nutrients required from their data
+	    proteinLabel.setText("Your reccomended protein intake is " + Nutrition.getProtein(this.getCalories(), weightGoal) + " grams");
+	    carbsLabel.setText("Your reccomended carb intake is " + Nutrition.getCarbs(this.getCalories(), weightGoal) + " grams");
+	    fatsLabel.setText("Your reccomended fat intake is " + Nutrition.getFat(this.getCalories(), weightGoal) + " grams");
+	    
+	    
 	    //Collects and distribute all assets to the respective HBox, then adds HBox to VBox
-	    checkProgessBMR.getChildren().addAll(BMRLabel);
+	    checkProgessBMR.getChildren().addAll(BMRLabel, proteinLabel, carbsLabel, fatsLabel);
 	    checkProgress.getChildren().add(checkProgessBMR);
     	
 	    //After user obtains their plan, done button returns to the main screen
@@ -284,9 +354,7 @@ public class FitnessTrackerController {
     	Scene checkProgressScene = new Scene(checkProgress);
     	applicationStage.setScene(checkProgressScene);
     }
-
     
-  
     
     
     
