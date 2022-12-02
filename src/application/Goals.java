@@ -1,5 +1,7 @@
 package application;
 
+import java.util.Scanner;
+
 public class Goals extends FitnessTrackerController {
 //Setting goals that the user has, etc, goes into this class
 	double weightGoal;
@@ -7,14 +9,31 @@ public class Goals extends FitnessTrackerController {
 	double bodyFat;
 	String gender;
 	int age;
-
+	
+	Scanner input = new Scanner(System.in);
+	int tracker = 0;
+	boolean valid;
 	
 	public int getAge() {
 		return this.age;
 	}
 	
 	public void setAge(int a) {
-		this.age = a;
+		int age = 0;
+		
+		do {
+			if (input.hasNextInt()) {
+				// System.out.print
+				age = input.nextInt();
+				valid = true;
+			} else {
+				// System.out.println
+				valid = false;
+				input.next();
+			}
+		} while (valid = false);
+			System.out.println(age);
+		this.age = a; //?
 	}
 	
 	public String getGender() {
@@ -22,7 +41,19 @@ public class Goals extends FitnessTrackerController {
 	}
 	
 	public void setGender(String g) {
-		this.gender = g;
+		String gender = g;
+		
+		do {
+			if (input.hasNext()) {
+				gender = input.nextLine(); //?
+				valid = true;
+			} else {
+				valid = false;
+				input.next();
+			}
+		} while (valid = false);
+			System.out.println(gender);
+//		this.gender = g;
 	}
 	
 	public double getWeightGoal() {
@@ -30,7 +61,19 @@ public class Goals extends FitnessTrackerController {
 	}
 	
 	public void setWeightGoal(double w) {
-		this.weightGoal = w;
+		double weightGoal = 0.0;
+		
+		do {
+			if (input.hasNextDouble()) {
+				weightGoal = input.nextDouble();
+				valid = true;
+			} else {
+				valid = false;
+				input.next();
+			}
+		} while (valid = false);
+			System.out.println(weightGoal);
+//		this.weightGoal = w;
 	}
 	
 	public double getCurrentWeight() {
@@ -38,7 +81,19 @@ public class Goals extends FitnessTrackerController {
 	}
 	
 	public void setCurrentWeight(double c) {
-		this.currentWeight = c;
+		double currentWeight = 0.0;
+		
+		do {
+			if (input.hasNextDouble()) {
+				currentWeight = input.nextDouble();
+				valid = true;
+			} else {
+				valid = false;
+				input.next();
+			}
+		} while (valid = false);
+			System.out.println(currentWeight);
+//		this.currentWeight = c;
 	}
 	
 	public double getBodyFat() {
@@ -46,7 +101,19 @@ public class Goals extends FitnessTrackerController {
 	}
 	
 	public void setBodyFat(double b) {
-		this.bodyFat = b;
+		double bodyFat = 0.0;
+		
+		do {
+			if (input.hasNextDouble()) {
+				bodyFat = input.nextDouble();
+				valid = true;
+			} else {
+				valid = false;
+				input.next();
+			}
+		} while (valid = false);
+			System.out.println(bodyFat);
+//		this.bodyFat = b;
 	}
 	
 	public double getHeight() {
@@ -54,7 +121,19 @@ public class Goals extends FitnessTrackerController {
 	}
 	
 	public void setHeight(double h) {
-		this.bodyFat = h;
+		double setHeight = 0.0;
+		
+		do {
+			if (input.hasNextDouble()) {
+				setHeight = input.nextDouble();
+				valid = true;
+			} else {
+				valid = false;
+				input.next();
+			}
+		} while (valid = false);
+			System.out.println(setHeight);
+//		this.setHeight = h;
 	}
 	
 	

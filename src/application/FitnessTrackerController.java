@@ -14,7 +14,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class FitnessTrackerController {
+public class FitnessTrackerController{
 	Stage applicationStage;
 	private boolean loseWeight;
 	private boolean gainWeight;
