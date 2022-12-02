@@ -21,39 +21,6 @@ public class FitnessTrackerController {
     @FXML
     private Label errorMessage;
     
-    void sendToGoal(TextField gender, Label errorGender, TextField age, Label errorAge, ChoiceBox<String> goal, Label error1, 
-    		TextField current, Label error2, TextField heightFt, TextField heightIn, Label error3) {
-    	
-    	//Error messages when the user inputs something wrong
-    	errorGender.setText(""); 
-    	errorAge.setText("");
-    	error1.setText("");
-    	error2.setText("");
-    	error3.setText("");
-    	
-    	//Required Data for the other methods like BMR
-    	String genderString = gender.getText();
-    	int ageValue = Integer.parseInt(age.getText());
-    	String goalValue = goal.getValue();
-    	double currentValue = Double.parseDouble(current.getText());
-    	double heightValueFT = Double.parseDouble(heightFt.getText());
-    	double heightValueIN = Double.parseDouble(heightIn.getText());
-    	
-    	//Send required data to Goals class and send to BMRCalculation method
-    	Goals userGoal = new Goals(goalValue,currentValue);
-    	BMRCalculation(userGoal, genderString, ageValue, heightValueFT, heightValueIN); 
-    	
-    	//Keep note of the user choice on what gender they are
-    	if(genderString.equalsIgnoreCase("Male")) {
-    		this.gender = genderString;
-    		System.out.println(this.gender);
-    	} else if(genderString.equalsIgnoreCase("Female")) {
-    		this.gender = genderString;
-    		System.out.println(this.gender);
-    	}
-    	System.out.println("Saved user's Data");
-    }
-
     @FXML
     void weightGoalPlan(ActionEvent event) {
     	errorMessage.setText("");
@@ -70,7 +37,7 @@ public class FitnessTrackerController {
     	TextField gender = new TextField();
     	Label errorMessage5 = new Label("");
     	errorMessage5.setPadding(new Insets(5,10,5,10));
-    	gender.setMaxWidth(88);
+    	gender.setMaxWidth(130);
     	
     	//Asks user of their age
     	HBox weightContainer6 = new HBox();
@@ -123,8 +90,10 @@ public class FitnessTrackerController {
     	HBox buttonContainer = new HBox();
     	Button send = new Button("Send Data");
     	Button done = new Button("Done");
+    	Label sendSavedLabel = new Label("");
+    	sendSavedLabel.setPadding(new Insets(5,10,5,10));
     	send.setOnAction(doneEvent -> sendToGoal(gender,errorMessage5,age,errorMessage6,goalChoiceBox,errorMessage1,
-    										currentWeight,errorMessage2,heightFT,heightIN,errorMessage3));	//Sending all necessary TextFields and error Labels
+    										currentWeight,errorMessage2,heightFT,heightIN,errorMessage3,sendSavedLabel));	//Sending all necessary TextFields and error Labels
     	done.setOnAction(doneEvent -> applicationStage.setScene(mainScene));
     	
     	//Each HBox container adding all their components, respectively
@@ -133,7 +102,7 @@ public class FitnessTrackerController {
     	weightContainer3.getChildren().addAll(weightLabel3,weightLabel4,heightFT,weightLabel4_1,heightIN,errorMessage3);
     	weightContainer5.getChildren().addAll(weightLabel5,gender,errorMessage5);
     	weightContainer6.getChildren().addAll(weightLabel6,age,errorMessage6);
-    	buttonContainer.getChildren().addAll(send,done);
+    	buttonContainer.getChildren().addAll(send,done,sendSavedLabel);
     	
     	//Adding each HBox into the VBox in order
     	weightVBox.getChildren().add(weightContainer5);
@@ -146,6 +115,39 @@ public class FitnessTrackerController {
     	//Display the VBox scene
     	Scene weightScene = new Scene(weightVBox);
     	applicationStage.setScene(weightScene);
+    }
+    
+    void sendToGoal(TextField gender, Label errorGender, TextField age, Label errorAge, ChoiceBox<String> goal, Label error1, 
+    		TextField current, Label error2, TextField heightFt, TextField heightIn, Label error3, Label sentSavedLabel) {
+    	
+    	//Error messages when the user inputs something wrong
+    	errorGender.setText(""); 
+    	errorAge.setText("");
+    	error1.setText("");
+    	error2.setText("");
+    	error3.setText("");
+    	
+    	//Required Data for the other methods like BMR
+    	String genderString = gender.getText();
+    	int ageValue = Integer.parseInt(age.getText());
+    	String goalValue = goal.getValue();
+    	double currentValue = Double.parseDouble(current.getText());
+    	double heightValueFT = Double.parseDouble(heightFt.getText());
+    	double heightValueIN = Double.parseDouble(heightIn.getText());
+    	
+    	//Send required data to Goals class and send to BMRCalculation method
+    	Goals userGoal = new Goals(goalValue,currentValue);
+    	BMRCalculation(userGoal, genderString, ageValue, heightValueFT, heightValueIN); 
+    	
+    	//Keep note of the user choice on what gender they are
+    	if(genderString.equalsIgnoreCase("Male")) {
+    		this.gender = genderString;
+    		System.out.println(this.gender);
+    	} else if(genderString.equalsIgnoreCase("Female")) {
+    		this.gender = genderString;
+    		System.out.println(this.gender);
+    	}
+    	sentSavedLabel.setText("Data Saved");
     }
         
     @FXML /*Invokes user of their exercise/activity habits*/
