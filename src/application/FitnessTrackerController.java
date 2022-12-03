@@ -112,6 +112,8 @@ public class FitnessTrackerController implements Nutrition {
     										currentWeight,errorMessage2,heightFT,heightIN,errorMessage3);
     	weightGoal = goalChoiceBox.getValue();
     	});//Sending all necessary TextFields and error Labels
+    	
+    	done.setOnAction(doneEvent -> applicationStage.setScene(mainScene));
    	
     	//Each HBox container adding all their components, respectively
     	weightContainer.getChildren().addAll(weightLabel1,goalChoiceBox,errorMessage1); 
@@ -119,7 +121,7 @@ public class FitnessTrackerController implements Nutrition {
     	weightContainer3.getChildren().addAll(weightLabel3,weightLabel4,heightFT,weightLabel4_1,heightIN,errorMessage3);
     	weightContainer5.getChildren().addAll(weightLabel5,gender,errorMessage5);
     	weightContainer6.getChildren().addAll(weightLabel6,age,errorMessage6);
-    	buttonContainer.getChildren().addAll(send,done,sendSavedLabel);
+    	buttonContainer.getChildren().addAll(send,done);
     	
     	//Adding each HBox into the VBox in order
     	weightVBox.getChildren().add(weightContainer5);
@@ -135,7 +137,7 @@ public class FitnessTrackerController implements Nutrition {
     }
     
     void sendToGoal(TextField gender, Label errorGender, TextField age, Label errorAge, ChoiceBox<String> goal, Label error1, 
-    		TextField current, Label error2, TextField heightFt, TextField heightIn, Label error3, Label sentSavedLabel) {
+    		TextField current, Label error2, TextField heightFt, TextField heightIn, Label error3) {
     	
     	//Error messages when the user inputs something wrong
     	errorGender.setText(""); 
@@ -164,7 +166,6 @@ public class FitnessTrackerController implements Nutrition {
     		this.gender = genderString;
     		System.out.println(this.gender);
     	}
-    	sentSavedLabel.setText("Data Saved");
     }
         
     @FXML /*Invokes user of their exercise/activity habits*/
