@@ -1,13 +1,17 @@
 package application;
 
+import javafx.scene.chart.XYChart;
+
 public class Goals extends FitnessTrackerController {
 //Setting goals that the user has, etc, goes into this class
-	private String goalWeight;
+	private String goalWeightLoss;
+	private double goalWeight;
 	private double currentWeight;
+	private int weightDifference;
 	private double calories = 0.0;
 	private static final Goals instance = new Goals();
 	
-	
+	// Getters and Setters
 	public static Goals getInstance() {
 		return instance;
 	}
@@ -21,10 +25,38 @@ public class Goals extends FitnessTrackerController {
 		return calories;
 	}
 	
+	public String getGoalWeightLoss() {
+		return goalWeightLoss;
+	}
+	
+	public double getCurrentWeight() {
+		return currentWeight;
+	}
+	
+	public void setGoalWeightLoss(String goalWeight) {
+		this.goalWeightLoss = goalWeight;
+	}
+	
+	public void setCurrentWeight(double currentWeight) {
+		this.currentWeight = currentWeight;
+	}
+	
+	public void setWeightGoal(double goalWeight) {
+		this.goalWeight = goalWeight;
+	}
+	
+	public double getWeightGoal() {
+		return goalWeight;
+	}
+	
+	public int getWeightDifference() {
+		return weightDifference;
+	}
+	
 	
 
 	public Goals(String goalValue, double currentValue) {
-		goalWeight = goalValue;
+		goalWeightLoss = goalValue;
 		currentWeight = currentValue;
 	}
 	
@@ -43,21 +75,34 @@ public class Goals extends FitnessTrackerController {
 		return randomNumber;
 	}
 	
-	public String getGoalWeight() {
-		return goalWeight;
+
+	
+	public XYChart.Series timeToGoal() {
+		XYChart.Series series = new XYChart.Series();
+	
+		series.setName("Goal weight per week");
+
+		int weightDifference = Math.abs((int) (currentWeight - goalWeight));
+		this.weightDifference = weightDifference;
+		int weightByWeek = (int) currentWeight;
+		
+		// using wrong math for this method
+		if (goalWeightLoss == "Weight loss of 1 Ibs (0.5kg) per week") {
+			for (int week = 0; week <= weightDifference; week++) {
+				series.getData().add(new XYChart.Data(String.format("Week %o", week), weightByWeek));
+				weightByWeek--;
+			}
+		} else if (goalWeightLoss == "Weight gain of 1 Ibs (0.5kg) per week") {
+			for (int week = 0; week <= weightDifference; week++) {
+				series.getData().add(new XYChart.Data(String.format("Week %o", week), weightByWeek));
+				weightByWeek++;
+			}
+		}
+		
+		return series;
+		
 	}
 	
-	public double getCurrentWeight() {
-		return currentWeight;
-	}
-	
-	public void setGoalWeight(String goalWeight) {
-		this.goalWeight = goalWeight;
-	}
-	
-	public void setCurrentWeight(double currentWeight) {
-		this.currentWeight = currentWeight;
-	}
 	
 	//Dw about all this code below, old stuff
 	/*
