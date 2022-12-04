@@ -254,6 +254,7 @@ public class FitnessTrackerController implements Nutrition {
     	}
     }  
     
+    
     protected void BMRCalculation2(Exercise choice) {
     	//Grabs the user activity choice from Exercise class
     	String thierChoice = choice.getUserChoice();
