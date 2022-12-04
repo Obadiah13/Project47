@@ -156,8 +156,8 @@ public class FitnessTrackerController implements Nutrition {
     	
     	//Send required data to Goals class and send to BMRCalculation method
     	Goals userGoal = new Goals(goalValue,currentValue);
-    	Exercise a = new Exercise(currentValue,heightValueFT,heightValueIN);
-    	BMRCalculation(userGoal,a,genderString,ageValue,heightValueFT,heightValueIN); 
+    	Exercise steps = new Exercise(currentValue,heightValueFT,heightValueIN);
+    	BMRCalculation(userGoal,steps,genderString,ageValue,heightValueFT,heightValueIN); 
     	
     	//Keep note of the user choice on what gender they are
     	if(genderString.equalsIgnoreCase("Male")) {
@@ -218,12 +218,11 @@ public class FitnessTrackerController implements Nutrition {
     	choiceLabel.setText("Activity Choice Saved"); //Notifies user that their activity choice is saved
     }
     
-    protected void BMRCalculation(Goals userGoal, Exercise a, String gender, int age, double heightFeet, double heightInches) {
+    protected void BMRCalculation(Goals userGoal, Exercise stepExercise, String gender, int age, double heightFeet, double heightInches) {
     	//Initialize and declare necessary variables for the BMR 
     	String thierGoalWeight = userGoal.getGoalWeight();
     	double totalHeightft = heightFeet + (heightInches*0.0833333);
     	double totalHeightcm = totalHeightft/0.0328084;
-    	System.out.println(a.calculateNumberOfSteps() + " From Exercise object a");
     	
     	//Calculates the proper BMR based on their gender choice
     	if(gender.equalsIgnoreCase("Male")) {
@@ -243,6 +242,15 @@ public class FitnessTrackerController implements Nutrition {
     		BMRF = BMRF + 500;
     	} else if(thierGoalWeight.equalsIgnoreCase("Maintain Weight")) { //If they want to maintain weight, then BMR remains unchanged
     		System.out.println("BMR remains unchanged");
+    	}
+    	
+    	//Subtract by calculateNumberOfSteps()
+    	if(gender.equalsIgnoreCase("Male")) {
+    		BMRM = BMRM - stepExercise.calculateNumberOfSteps();
+    		//System.out.println("StepExercise was used for male");
+    	} else if(gender.equalsIgnoreCase("Female")) {
+    		BMRF = BMRF - stepExercise.calculateNumberOfSteps();
+    		//System.out.println("StepExercise was used for Female");
     	}
     }  
     
