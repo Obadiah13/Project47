@@ -1,11 +1,7 @@
 package application;
 
 public interface Nutrition {
-//	private String userChoice;
-	
-	
-	
-	
+
 	public static int getCarbs(double calories, String goal) {
 		int carbs = 0;
 		if (goal == "Weight loss of 1 Ibs (0.5kg) per week") {
@@ -41,25 +37,7 @@ public interface Nutrition {
 		}
 		return fat;
 	}
-	
-	
-//	
-//	public Nutrition(String theirChoice) {
-//		userChoice = theirChoice;
-//	}
-//	
-//	public Nutrition() {
-//		
-//	}
-//	
-//	public String getUserChoice() {
-//		return userChoice;
-//	}
-//	
-//	public void setUserChoice(String theirChoice) {
-//		userChoice = theirChoice;
-//		
-//	}
+
 	
 	
 }

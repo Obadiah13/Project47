@@ -1,6 +1,6 @@
 package application;
 
-import java.io.FileInputStream;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -18,13 +18,20 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class FitnessTrackerController implements Nutrition {
+public class FitnessTrackerController  {
 	Stage applicationStage;
 	private String gender = "";	//Keep note of their gender
 	private double BMRM = 0.00;	//Keep note of their BMR for a Male
 	private double BMRF = 0.00;	//Keep note of their BMR for a Female
     private String weightGoal = "";
-   
+    private double weightNow = 0.0;
+    
+    // Final instance of goals to save data and communicate between scenes
+    Goals currentGoals = Goals.getInstance();
+
+    
+    
+    
 	public double getCalories() {
 		double calories = 0; 
 		if(this.gender.equalsIgnoreCase("Male")) {
@@ -143,6 +150,7 @@ public class FitnessTrackerController implements Nutrition {
     	send.setOnAction(doneEvent -> {sendToGoal(gender,errorMessage5,age,errorMessage6,goalChoiceBox,errorMessage1,
     										currentWeight,errorMessage2,heightFT,heightIN,errorMessage3);
     	weightGoal = goalChoiceBox.getValue();
+    	weightNow = Double.parseDouble(currentWeight.getText());
     	
     	});//Sending all necessary TextFields and error Labels
     	done.setOnAction(doneEvent -> applicationStage.setScene(mainScene));
@@ -264,6 +272,7 @@ public class FitnessTrackerController implements Nutrition {
     		BMRM = BMRM * 1.90;
     		BMRF = BMRF * 1.90;
     	}
+    	
     }
     
 //    void saveNutrition(ChoiceBox<String> userChoice, Label choiceLabel) {
@@ -313,47 +322,65 @@ public class FitnessTrackerController implements Nutrition {
     }
     
 //    Last step in the process
+//    @FXML
+//    void checkProgress(ActionEvent event) {
+//    	Scene mainScene = applicationStage.getScene();
+//    	VBox checkProgress = new VBox();
+//    	
+//	    HBox checkProgessBMR = new HBox();
+//	    Label BMRLabel = new Label("");
+//	    BMRLabel.setPadding(new Insets(5,10,5,10));
+//	    Label proteinLabel = new Label("");
+//	    proteinLabel.setPadding(new Insets(5,10,5,10));
+//	    Label carbsLabel = new Label("");
+//	    carbsLabel.setPadding(new Insets(5,10,5,10));
+//	    Label fatsLabel = new Label("");
+//	    fatsLabel.setPadding(new Insets(5,10,5,10));
+//	    
+//	    
+//	    //Displays ideal BMR/Calorie count required from their data, rounds to nearest whole number
+//	    if(this.gender.equalsIgnoreCase("Male")) {
+//	    	BMRLabel.setText("Your BMR or daliy calorie count intake is: " + Math.round(BMRM) + " Calories/Day");
+//	    } else if(this.gender.equalsIgnoreCase("Female")) {
+//	    	BMRLabel.setText("Your BMR or daily calorie count intake is: " + Math.round(BMRF) + "Calories/Day");
+//	    }
+//	    
+//	    // Displays ideal quantities of macro nutrients required from their data
+//	    proteinLabel.setText("Your reccomended protein intake is " + Nutrition.getProtein(this.getCalories(), weightGoal) + " grams");
+//	    carbsLabel.setText("Your reccomended carb intake is " + Nutrition.getCarbs(this.getCalories(), weightGoal) + " grams");
+//	    fatsLabel.setText("Your reccomended fat intake is " + Nutrition.getFat(this.getCalories(), weightGoal) + " grams");
+//	    
+//	    
+//	    //Collects and distribute all assets to the respective HBox, then adds HBox to VBox
+//	    checkProgessBMR.getChildren().addAll(BMRLabel, proteinLabel, carbsLabel, fatsLabel);
+//	    checkProgress.getChildren().add(checkProgessBMR);
+//    	
+//	    //After user obtains their plan, done button returns to the main screen
+//    	Button done = new Button("Done");
+//    	done.setOnAction(doneEvent -> applicationStage.setScene(mainScene));
+//    	checkProgress.getChildren().add(done);
+//    	
+//    	//Show scene
+//    	Scene checkProgressScene = new Scene(checkProgress);
+//    	applicationStage.setScene(checkProgressScene);
+//    }
+    
+    
     @FXML
-    void checkProgress(ActionEvent event) {
-    	Scene mainScene = applicationStage.getScene();
-    	VBox checkProgress = new VBox();
+    void checkProgress(ActionEvent event) throws IOException, FileNotFoundException {
     	
-	    HBox checkProgessBMR = new HBox();
-	    Label BMRLabel = new Label("");
-	    BMRLabel.setPadding(new Insets(5,10,5,10));
-	    Label proteinLabel = new Label("");
-	    proteinLabel.setPadding(new Insets(5,10,5,10));
-	    Label carbsLabel = new Label("");
-	    carbsLabel.setPadding(new Insets(5,10,5,10));
-	    Label fatsLabel = new Label("");
-	    fatsLabel.setPadding(new Insets(5,10,5,10));
-	    
-	    
-	    //Displays ideal BMR/Calorie count required from their data, rounds to nearest whole number
-	    if(this.gender.equalsIgnoreCase("Male")) {
-	    	BMRLabel.setText("Your BMR or daliy calorie count intake is: " + Math.round(BMRM) + " Calories/Day");
-	    } else if(this.gender.equalsIgnoreCase("Female")) {
-	    	BMRLabel.setText("Your BMR or daily calorie count intake is: " + Math.round(BMRF) + "Calories/Day");
-	    }
-	    
-	    // Displays ideal quantities of macro nutrients required from their data
-	    proteinLabel.setText("Your reccomended protein intake is " + Nutrition.getProtein(this.getCalories(), weightGoal) + " grams");
-	    carbsLabel.setText("Your reccomended carb intake is " + Nutrition.getCarbs(this.getCalories(), weightGoal) + " grams");
-	    fatsLabel.setText("Your reccomended fat intake is " + Nutrition.getFat(this.getCalories(), weightGoal) + " grams");
-	    
-	    
-	    //Collects and distribute all assets to the respective HBox, then adds HBox to VBox
-	    checkProgessBMR.getChildren().addAll(BMRLabel, proteinLabel, carbsLabel, fatsLabel);
-	    checkProgress.getChildren().add(checkProgessBMR);
+    	//  Saves data from this scene to the final instance of currentGoals to communicate with the myPlan Scene
+    	currentGoals.setCalories(this.getCalories());
+    	currentGoals.setCurrentWeight(weightNow);
+    	currentGoals.setGoalWeight(weightGoal);
     	
-	    //After user obtains their plan, done button returns to the main screen
-    	Button done = new Button("Done");
-    	done.setOnAction(doneEvent -> applicationStage.setScene(mainScene));
-    	checkProgress.getChildren().add(done);
+    	// Show myPlan Scene
+    	Parent root = FXMLLoader.load((getClass().getResource("myPlan.fxml")));
+    	applicationStage.setScene(new Scene(root));
     	
-    	//Show scene
-    	Scene checkProgressScene = new Scene(checkProgress);
-    	applicationStage.setScene(checkProgressScene);
+    	
+    	
+     
     }
     
     
@@ -511,6 +538,7 @@ void exercisePlan2(ChoiceBox<String> userChoice, Scene mainScene) {
 	}
 }
 */
+    
 }
 
 

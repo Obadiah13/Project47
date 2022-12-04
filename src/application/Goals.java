@@ -4,7 +4,22 @@ public class Goals extends FitnessTrackerController {
 //Setting goals that the user has, etc, goes into this class
 	private String goalWeight;
 	private double currentWeight;
+	private double calories = 0.0;
+	private static final Goals instance = new Goals();
 	
+	
+	public static Goals getInstance() {
+		return instance;
+	}
+
+	public void setCalories(double calories) {
+		this.calories = calories;
+	}
+	
+	@Override
+	public double getCalories() {
+		return calories;
+	}
 	
 	
 
@@ -16,6 +31,7 @@ public class Goals extends FitnessTrackerController {
 	public Goals() {
 		
 	}
+	
 	
 	public double CurrentWeightKg() {
 		double currentWeightKg = currentWeight*0.453592;
@@ -34,6 +50,15 @@ public class Goals extends FitnessTrackerController {
 	public double getCurrentWeight() {
 		return currentWeight;
 	}
+	
+	public void setGoalWeight(String goalWeight) {
+		this.goalWeight = goalWeight;
+	}
+	
+	public void setCurrentWeight(double currentWeight) {
+		this.currentWeight = currentWeight;
+	}
+	
 	//Dw about all this code below, old stuff
 	/*
 	public int getAge() {
