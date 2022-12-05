@@ -16,13 +16,13 @@ public class Main extends Application {
 		try {
 			
 			FXMLLoader loader = new FXMLLoader();
-			VBox root = loader.load(new FileInputStream("src/application/FitnessTracker.fxml"));
-			FitnessTrackerController controller = (FitnessTrackerController)loader.getController();
+			VBox root = loader.load(new FileInputStream("src/application/mainScene.fxml"));
+			mainSceneController controller = (mainSceneController)loader.getController();
 			controller.applicationStage = primaryStage;
 		
 			Scene scene = new Scene(root,300,300);
 			primaryStage.setScene(scene);
-			primaryStage.setTitle("Fitness Tracker");
+			primaryStage.setTitle("My Health Plan");
 			primaryStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();

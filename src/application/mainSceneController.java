@@ -18,7 +18,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class FitnessTrackerController  {
+public class mainSceneController  {
 	Stage applicationStage;
 	private String gender = "";	//Keep note of their gender
 	private double BMRM = 0.00;	//Keep note of their BMR for a Male

@@ -18,7 +18,7 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
-public class myPlanController extends FitnessTrackerController implements Initializable {
+public class myPlanController extends mainSceneController implements Initializable {
 	Stage applicationStage;
 	
     @FXML
