@@ -1,5 +1,6 @@
 package application;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
@@ -16,9 +17,10 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class myPlanController extends FitnessTrackerController implements Initializable {
+public class myPlanController extends Main implements Initializable {
 	Stage applicationStage;
 	
     @FXML
@@ -35,6 +37,18 @@ public class myPlanController extends FitnessTrackerController implements Initia
     
     @FXML
     private Label nutritionInfoLabel; 
+    
+    @FXML 
+    private Label currentWeightLabel;
+    
+    @FXML 
+    private Label goalWeightLabel;
+    
+    @FXML 
+    private Label weightPlanLabel;
+    
+    @FXML 
+    private Label exercisePlanLabel;
     
     @FXML
     private CategoryAxis weekAxis;
@@ -58,8 +72,24 @@ public class myPlanController extends FitnessTrackerController implements Initia
     // **This Method does not work, figure out how to make a back button.
 	void goBack(ActionEvent event) throws IOException, FileNotFoundException {
 	    	// Go back to main scene
-    	Parent root = FXMLLoader.load((getClass().getResource("FitnessTracker.fxml")));
-    	applicationStage.setScene(new Scene(root)); 
+//    	Parent root = FXMLLoader.load((getClass().getResource("FitnessTracker.fxml")));
+//    	applicationStage.setScene(new Scene(root));
+    	
+//    	FXMLLoader loader = new FXMLLoader();
+//		VBox root = loader.load(new FileInputStream("src/application/mainScene.fxml"));
+//		mainSceneController controller = (mainSceneController)loader.getController();
+//		controller.applicationStage = new Stage();
+//	
+//		Scene scene = new Scene(root,300,300);
+//		applicationStage.setScene(scene);
+//		applicationStage.setTitle("My Health Plan");
+//		applicationStage.show();
+    	
+    	
+    	FXMLLoader loader = new FXMLLoader();
+    	VBox mainVbox = loader.load(new FileInputStream("src/application/mainScene.fxml"));
+    	Scene mainScene = new Scene(mainVbox);
+    	applicationStage.setScene(mainScene);
     	
 	    }
     
@@ -67,43 +97,53 @@ public class myPlanController extends FitnessTrackerController implements Initia
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		
+		
+		// Recommended Calorie and Macronutrient Intakes Tab:
+		
+		// User Goal Labels
+		currentWeightLabel.setText(Math.round(currentGoals.getCurrentWeight()) + "lbs");
+		goalWeightLabel.setText(Math.round(currentGoals.getWeightGoal()) + "lbs");
+		weightPlanLabel.setText(currentGoals.getWeightPlan());
+		exercisePlanLabel.setText(currentGoals.getActivityPlan());
+		
+		// Macro Labels
 		foodEnergyLabel.setText(Math.round(currentGoals.getCalories()) + " calories");
-		carbLabel.setText(Nutrition.getCarbs(currentGoals.getCalories(), currentGoals.getGoalWeightLoss()) + " grams");
-		proteinLabel.setText(Nutrition.getProtein(currentGoals.getCalories(), currentGoals.getGoalWeightLoss()) + " grams");
-		fatLabel.setText(Nutrition.getFat(currentGoals.getCalories(), currentGoals.getGoalWeightLoss()) + " grams");
+		carbLabel.setText(Nutrition.getCarbs(currentGoals.getCalories(), currentGoals.getWeightPlan()) + " grams");
+		proteinLabel.setText(Nutrition.getProtein(currentGoals.getCalories(), currentGoals.getWeightPlan()) + " grams");
+		fatLabel.setText(Nutrition.getFat(currentGoals.getCalories(), currentGoals.getWeightPlan()) + " grams");
 		
 		nutritionInfoLabel.setText(""" 
-				The results above are a guideline for more typical situations. Please consult with a doctor for 
-				your macronutrient needs if you are an athlete, training for a specific purpose, or on special 
-				diet due to a disease, pregnancy, or other conditions. The protein range is calculated based on 
-				the guidelines set by the American Dietetic Association (ADA), The Centers for Disease Control 
-				and Prevention (CDC), and the World Health Organization. The carbohydrate range is based on 
-				the guidelines and joint recommendations of The Institute of Medicine, The Food and Agriculture 
-				Organization and the World Health Organization. 
+				The results above are a guideline for more typical situations. Please consult with a doctor for your macronutrient needs if you are an athlete, training for a 
+				specific purpose, or on special diet due to a disease, pregnancy, or other conditions. The protein range is calculated based on the guidelines set by the 
+				American Dietetic Association (ADA), The Centers for Disease Control and Prevention (CDC), and the World Health Organization. The carbohydrate range 
+				is based on the guidelines and joint recommendations of The Institute of Medicine, The Food and Agriculture Organization and the World Health 
+				Organization.
 				""");
 		
-		timeToGoalChart.getData().addAll(currentGoals.timeToGoal());
-		timeToGoalLabel.setText(currentGoals.getWeightDifference() + " weeks to reach " + Math.round(currentGoals.getWeightGoal()) + "lbs");
-		weightLossGoalLabel.setText("""
-				By following our recommended calorie and 
-				macronutrient intake and exercise plan, 
-				you will be able to reach your intended 
-				weight! 
-
-				Please note that for most people, 
-				gaining/losing more than 2 pounds per 
-				week can lead to an increased risk of 
-				issues including but not limited to 
-				metabolic syndrome, diabetes, 
-				heart disease, dehydration, electrolyte 
-				imbalance, body dysmorphia, and suicidal 
-				tendencies. 
-				""");
+		// Time to Goal Tab:
 		
-		
-		
-		
-		
+		if (currentGoals.getWeightPlan() != "Maintain Weight") {
+			timeToGoalChart.getData().addAll(currentGoals.timeToGoal());
+			timeToGoalLabel.setText(currentGoals.getWeeksToGoal() + " weeks to reach " + Math.round(currentGoals.getWeightGoal()) + "lbs");
+			weightLossGoalLabel.setText("""
+					By following our recommended calorie and 
+					macronutrient intake and exercise plan, 
+					you will be able to reach your intended 
+					weight! 
+	
+					Please note that for most people, 
+					gaining/losing more than 2 pounds per 
+					week can lead to an increased risk of 
+					issues including but not limited to 
+					metabolic syndrome, diabetes, 
+					heart disease, dehydration, electrolyte 
+					imbalance, body dysmorphia, and suicidal 
+					tendencies. 
+					""");
+		} else {
+			timeToGoalLabel.setText("You are already at your \ntarget weight :)");
+		}
 		
 	}
 
