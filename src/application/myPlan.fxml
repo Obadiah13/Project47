@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.myPlanController">
+   <children>
+      <Label alignment="CENTER" contentDisplay="CENTER" text="My Health Plan" textAlignment="CENTER">
+         <VBox.margin>
+            <Insets left="225.0" top="20.0" />
+         </VBox.margin>
+         <font>
+            <Font name="Avenir Next Bold" size="18.0" />
+         </font>
+      </Label>
+      <Button mnemonicParsing="false" onAction="#goBack" text="Back" VBox.vgrow="NEVER">
+         <VBox.margin>
+            <Insets left="27.0" top="-27.0" />
+         </VBox.margin>
+      </Button>
+      <TabPane prefHeight="433.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Reccomended Calorie and Macronutrient Intake">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="10.0" layoutY="10.0" prefHeight="19.0" prefWidth="87.0" text="Food Energy:" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="20.0">
+                           <font>
+                              <Font name="Avenir Next Bold" size="13.0" />
+                           </font>
+                        </Label>
+                        <Label prefHeight="19.0" prefWidth="58.0" text="Protein:" AnchorPane.bottomAnchor="243.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="502.0" AnchorPane.topAnchor="40.0">
+                           <font>
+                              <Font name="Avenir Next Bold" size="13.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="10.0" layoutY="10.0" prefHeight="19.0" prefWidth="38.0" text="Fats:" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="80.0">
+                           <font>
+                              <Font name="Avenir Next Bold" size="13.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="20.0" layoutY="20.0" prefHeight="19.0" prefWidth="101.0" text="Carbohydrates:" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="60.0">
+                           <font>
+                              <Font name="Avenir Next Bold" size="13.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="foodEnergyLabel" layoutX="20.0" layoutY="20.0" prefHeight="19.0" prefWidth="133.0" text="" textFill="#d93e00" AnchorPane.leftAnchor="180.0" AnchorPane.topAnchor="20.0">
+                           <font>
+                              <Font name="Avenir Next Bold" size="13.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="proteinLabel" layoutX="10.0" layoutY="10.0" prefHeight="19.0" prefWidth="133.0" text="" textFill="#db9b00" AnchorPane.leftAnchor="180.0" AnchorPane.topAnchor="40.0">
+                           <font>
+                              <Font name="Avenir Next Bold" size="13.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="carbLabel" layoutX="20.0" layoutY="20.0" prefHeight="19.0" prefWidth="133.0" text="" textFill="#00bf66" AnchorPane.leftAnchor="180.0" AnchorPane.topAnchor="60.0">
+                           <font>
+                              <Font name="Avenir Next Bold" size="13.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="fatLabel" layoutX="30.0" layoutY="30.0" prefHeight="19.0" prefWidth="133.0" text="" textFill="#3734ff" AnchorPane.leftAnchor="180.0" AnchorPane.topAnchor="80.0">
+                           <font>
+                              <Font name="Avenir Next Bold" size="13.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="nutritionInfoLabel" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="120.0" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="Time to Goal">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <padding>
+                        <Insets top="30.0" />
+                     </padding>
+                     <children>
+                        <LineChart fx:id="timeToGoalChart" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="-10.0">
+                          <xAxis>
+                            <CategoryAxis fx:id="weekAxis" side="BOTTOM" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis fx:id="weightAxis" side="LEFT" />
+                          </yAxis>
+                        </LineChart>
+                        <Label fx:id="timeToGoalLabel" layoutY="50.0" prefHeight="19.0" prefWidth="184.0" text="Label" textFill="#f20000" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="0.0">
+                           <font>
+                              <Font name="Avenir Next Bold" size="13.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="weightLossGoalLabel" text="Label" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="30.0">
+                           <font>
+                              <Font size="10.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+        </tabs>
+         <VBox.margin>
+            <Insets top="20.0" />
+         </VBox.margin>
+      </TabPane>
+   </children>
+</VBox>
