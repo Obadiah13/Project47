@@ -55,6 +55,7 @@ public class mainSceneController  {
     	error3.setText("");
     	
     	//Required Data for the other methods like BMR
+
 // 		String genderString = gender.getText();
 //    	int ageValue = Integer.parseInt(age.getText());
 //    	String goalValue = goal.getValue();
@@ -191,6 +192,7 @@ public class mainSceneController  {
     	Button done = new Button("Done");
     	send.setOnAction(doneEvent -> {sendToGoal(gender,errorMessage5,age,errorMessage6,goalChoiceBox,errorMessage1,
     										currentWeight,errorMessage2,heightFT,heightIN,errorMessage3,intendedWeight,errorMessage4);
+                        
     	weightLossGoal = goalChoiceBox.getValue();
     	weightGoal = Double.parseDouble(intendedWeight.getText());
     	weightNow = Double.parseDouble(currentWeight.getText());
@@ -339,7 +341,11 @@ public class mainSceneController  {
 	    	
 	    	// Show myPlan Scene
 	    	Parent root = FXMLLoader.load((getClass().getResource("myPlan.fxml")));
-	    	applicationStage.setScene(new Scene(root));
+        
+	    	Scene scene = new Scene(root);
+	    	applicationStage.setScene(scene);
+	    	applicationStage.show();
+        
     	} else if (activityPlan == "") {
     		planErrorLabel.setText("Please select your activity plan");
     	} else {
