@@ -24,6 +24,7 @@ public class FitnessTrackerController  {
 	private double BMRM = 0.00;	//Keep note of their BMR for a Male
 	private double BMRF = 0.00;	//Keep note of their BMR for a Female
     private String weightLossGoal = "";
+    private String activityPlan = "";
     private double weightGoal = 0.0;
     private double weightNow = 0.0;
     
@@ -208,7 +209,10 @@ public class FitnessTrackerController  {
     	Button nextExcercisePlan = new Button("Save Choice");
     	Label choiceIsSaved = new Label();
     	choiceIsSaved.setPadding(new Insets(5,10,5,10));
-    	nextExcercisePlan.setOnAction(doneEvent -> saveExercise(exerciseChoiceBox,choiceIsSaved));
+    	nextExcercisePlan.setOnAction(doneEvent -> {saveExercise(exerciseChoiceBox,choiceIsSaved);
+    	activityPlan = exerciseChoiceBox.getValue();	
+    	
+    	});
     	
     	//A button that has the user return to the main screen
     	HBox returnContainer = new HBox();
@@ -239,7 +243,7 @@ public class FitnessTrackerController  {
     
     protected void BMRCalculation(Goals userGoal, String gender, int age, double heightFeet, double heightInches) {
     	//Initialize and declare necessary variables for the BMR 
-    	String thierGoalWeight = userGoal.getGoalWeightLoss();
+    	String thierGoalWeight = userGoal.getWeightPlan();
     	double totalHeightft = heightFeet + (heightInches*0.0833333);
     	double totalHeightcm = totalHeightft/0.0328084;
     	
@@ -357,8 +361,9 @@ public class FitnessTrackerController  {
     	//  Saves data from this scene to the final instance of currentGoals to communicate with the myPlan Scene
     	currentGoals.setCalories(this.getCalories());
     	currentGoals.setCurrentWeight(weightNow);
-    	currentGoals.setGoalWeightLoss(weightLossGoal);
+    	currentGoals.setWeightPlan(weightLossGoal);
     	currentGoals.setWeightGoal(weightGoal);
+    	currentGoals.setActivityPlan(activityPlan);
     	
     	// Show myPlan Scene
     	Parent root = FXMLLoader.load((getClass().getResource("myPlan.fxml")));

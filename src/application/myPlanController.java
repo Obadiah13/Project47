@@ -36,6 +36,18 @@ public class myPlanController extends FitnessTrackerController implements Initia
     @FXML
     private Label nutritionInfoLabel; 
     
+    @FXML 
+    private Label currentWeightLabel;
+    
+    @FXML 
+    private Label goalWeightLabel;
+    
+    @FXML 
+    private Label weightPlanLabel;
+    
+    @FXML 
+    private Label exercisePlanLabel;
+    
     @FXML
     private CategoryAxis weekAxis;
     
@@ -67,10 +79,21 @@ public class myPlanController extends FitnessTrackerController implements Initia
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		
+		
+		// Recommended Calorie and Macronutrient Intakes Tab:
+		
+		// User Goal Labels
+		currentWeightLabel.setText(Math.round(currentGoals.getCurrentWeight()) + "lbs");
+		goalWeightLabel.setText(Math.round(currentGoals.getWeightGoal()) + "lbs");
+		weightPlanLabel.setText(currentGoals.getWeightPlan());
+		exercisePlanLabel.setText(currentGoals.getActivityPlan());
+		
+		// Macro Labels
 		foodEnergyLabel.setText(Math.round(currentGoals.getCalories()) + " calories");
-		carbLabel.setText(Nutrition.getCarbs(currentGoals.getCalories(), currentGoals.getGoalWeightLoss()) + " grams");
-		proteinLabel.setText(Nutrition.getProtein(currentGoals.getCalories(), currentGoals.getGoalWeightLoss()) + " grams");
-		fatLabel.setText(Nutrition.getFat(currentGoals.getCalories(), currentGoals.getGoalWeightLoss()) + " grams");
+		carbLabel.setText(Nutrition.getCarbs(currentGoals.getCalories(), currentGoals.getWeightPlan()) + " grams");
+		proteinLabel.setText(Nutrition.getProtein(currentGoals.getCalories(), currentGoals.getWeightPlan()) + " grams");
+		fatLabel.setText(Nutrition.getFat(currentGoals.getCalories(), currentGoals.getWeightPlan()) + " grams");
 		
 		nutritionInfoLabel.setText(""" 
 				The results above are a guideline for more typical situations. Please consult with a doctor for 
@@ -82,8 +105,9 @@ public class myPlanController extends FitnessTrackerController implements Initia
 				Organization and the World Health Organization. 
 				""");
 		
+		// Time to Goal Tab:
 		timeToGoalChart.getData().addAll(currentGoals.timeToGoal());
-		timeToGoalLabel.setText(currentGoals.getWeightDifference() + " weeks to reach " + Math.round(currentGoals.getWeightGoal()) + "lbs");
+		timeToGoalLabel.setText(currentGoals.getWeeksToGoal() + " weeks to reach " + Math.round(currentGoals.getWeightGoal()) + "lbs");
 		weightLossGoalLabel.setText("""
 				By following our recommended calorie and 
 				macronutrient intake and exercise plan, 
