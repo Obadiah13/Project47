@@ -93,7 +93,7 @@ public class FitnessTrackerController  {
     	TextField gender = new TextField();
     	Label errorMessage5 = new Label("");
     	errorMessage5.setPadding(new Insets(5,10,5,10));
-    	gender.setMaxWidth(88);
+    	gender.setMaxWidth(100);
     	
     	//Asks user of their age
     	HBox weightContainer6 = new HBox();
