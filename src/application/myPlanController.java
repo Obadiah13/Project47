@@ -69,13 +69,13 @@ public class myPlanController extends Main implements Initializable {
     // Gets final instance of goals (data collected from the main scene)
     Goals currentGoals = Goals.getInstance();
     
-    @FXML 
-	void goBack(ActionEvent event) throws Exception {
-    	Stage mainWindow = (Stage) ((Node)event.getSource()).getScene().getWindow();
-    	Main main = new Main();
-		main.start(mainWindow);
-		this.stop();
-	    }
+    @FXML
+	  void goBack(ActionEvent event) throws Exception {
+      Stage mainWindow = (Stage) ((Node)event.getSource()).getScene().getWindow();
+      Main main = new Main();
+		  main.start(mainWindow);
+		  this.stop();
+    }
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
