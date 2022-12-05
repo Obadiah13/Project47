@@ -45,7 +45,7 @@ public class mainSceneController  {
     private Label errorMessage;
     
     void sendToGoal(TextField gender, Label errorGender, TextField age, Label errorAge, ChoiceBox<String> goal, Label error1, 
-    		TextField current, Label error2, TextField heightFt, TextField heightIn, Label error3) {
+    		TextField current, Label error2, TextField heightFt, TextField heightIn, Label error3, TextField goalTextField, Label error4) {
     	
     	//Error messages when the user inputs something wrong
     	errorGender.setText(""); 
@@ -55,15 +55,49 @@ public class mainSceneController  {
     	error3.setText("");
     	
     	//Required Data for the other methods like BMR
-    	String genderString = gender.getText();
-    	int ageValue = Integer.parseInt(age.getText());
-    	String goalValue = goal.getValue();
-    	double currentValue = Double.parseDouble(current.getText());
-    	double heightValueFT = Double.parseDouble(heightFt.getText());
-    	double heightValueIN = Double.parseDouble(heightIn.getText());
+// 		String genderString = gender.getText();
+//    	int ageValue = Integer.parseInt(age.getText());
+//    	String goalValue = goal.getValue();
+//    	double currentValue = Double.parseDouble(current.getText());
+//    	double heightValueFT = Double.parseDouble(heightFt.getText());
+//    	double heightValueIN = Double.parseDouble(heightIn.getText());
     	
+    	InputValidation a = new InputValidation();
+        String genderString = "";
+        //String ageString = "";
+        int ageValue = 0;
+        double currentValue = 0.0;
+        String goalChoiceBox = goal.getValue(); //Since ChoiceBox does not need validation
+        double goalValue = 0.0;
+        double heightValueFT = 0.0;
+        double heightValueIN = 0.0;
+    	
+        // call set age, if true set get age.getText valid string // requires test when goals userGoal error resolved
+        if(a.setAge(age, errorAge) == true) {
+            ageValue = Integer.parseInt(age.getText());
+        }
+        
+        // call set gender, if true set get gender.getText valid string // good
+        if(a.setGender(gender, errorGender) == true) {
+            genderString = gender.getText();
+        }
+        
+        // call setCurrentWeight, if true set get current.getText valid string // good
+        if(a.setCurrentWeight(current, error2) == true) {
+            currentValue = Double.parseDouble(current.getText());
+        }
+        
+        if(a.setGoalWeight(goalTextField, error4) == true) {
+            goalValue = Double.parseDouble(goalTextField.getText());
+       }
+        
+        if(a.setHeight(heightFt, heightIn, error3)) {
+            heightValueFT = Double.parseDouble(heightFt.getText());
+            heightValueIN = Double.parseDouble(heightIn.getText());
+        }
+    
     	//Send required data to Goals class and send to BMRCalculation method
-    	Goals userGoal = new Goals(goalValue,currentValue);
+    	Goals userGoal = new Goals(goalChoiceBox,currentValue);
     	BMRCalculation(userGoal, genderString, ageValue, heightValueFT, heightValueIN); 
     	
     	//Keep note of the user choice on what gender they are
@@ -156,7 +190,7 @@ public class mainSceneController  {
     	Button send = new Button("Send Data");
     	Button done = new Button("Done");
     	send.setOnAction(doneEvent -> {sendToGoal(gender,errorMessage5,age,errorMessage6,goalChoiceBox,errorMessage1,
-    										currentWeight,errorMessage2,heightFT,heightIN,errorMessage3);
+    										currentWeight,errorMessage2,heightFT,heightIN,errorMessage3,intendedWeight,errorMessage4);
     	weightLossGoal = goalChoiceBox.getValue();
     	weightGoal = Double.parseDouble(intendedWeight.getText());
     	weightNow = Double.parseDouble(currentWeight.getText());

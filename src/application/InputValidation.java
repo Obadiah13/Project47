@@ -31,7 +31,7 @@ public class InputValidation {
                     valid = true;
                 }
                 
-                int ageInput = 0;
+                int ageInput = Integer.parseInt(currentAge);
 				if(ageInput < 18 || ageInput > 80) {
                 	errorAge.setText("Invalid input, value within range of 18-80");
                 }
@@ -74,24 +74,24 @@ public class InputValidation {
     }
     
       // duplicate code above for goalValue //////////////////////////////////////////////////////////////////////// NOT good
-//    public boolean setGoalWeight(TextField d, Label errorGoalWeight) {
-//        String goalWeight = d.getText();
-//        int decimalCount = 0;
-//            for(char a : goalWeight.toCharArray()) {
-//                if (a == '.') {
-//                    decimalCount = decimalCount + 1;
-//                    if (decimalCount > 1) {
-//                        valid = false;
-//                        errorGoalWeight.setText("Invalid input, no more than one decimal");
-//                    }
+    public boolean setGoalWeight(TextField d, Label errorGoalWeight) {
+        String goalWeight = d.getText();
+        int decimalCount = 0;
+            for(char a : goalWeight.toCharArray()) {
+                if (a == '.') {
+                    decimalCount = decimalCount + 1;
+                    if (decimalCount > 1) {
+                        valid = false;
+                        errorGoalWeight.setText("Invalid input, no more than one decimal");
+                    }
 
-//                } else {
-//                    errorGoalWeight.setText("");
-//                    valid = true;
-//                }
-//            }
-//        return valid;
-//    }
+                } else {
+                    errorGoalWeight.setText("");
+                    valid = true;
+                }
+            }
+        return valid;
+    }
 
     // update
     // check 2 textboxes ft and inches
@@ -105,7 +105,7 @@ public class InputValidation {
         String currentHeightIn = i.getText();
 
         for(char b : currentHeightFt.toCharArray()) {
-            if (b == '.') {
+            if (!(Character.isDigit(b))) { // if number not digit, throw error
                 valid = false;
                 errorHeight.setText("Invalid input, no more than one decimal");
             } else {
@@ -113,7 +113,7 @@ public class InputValidation {
                 valid = true;
             }
         for(char c : currentHeightIn.toCharArray()) {
-            if (c == '.') {
+            if (!(Character.isDigit(c))) {
                 valid = false;
                 errorHeight.setText("Invalid input, no more than one decimal");
             } else {
