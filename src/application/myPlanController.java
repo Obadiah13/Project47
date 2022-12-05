@@ -96,16 +96,16 @@ public class myPlanController extends FitnessTrackerController implements Initia
 		fatLabel.setText(Nutrition.getFat(currentGoals.getCalories(), currentGoals.getWeightPlan()) + " grams");
 		
 		nutritionInfoLabel.setText(""" 
-				The results above are a guideline for more typical situations. Please consult with a doctor for 
-				your macronutrient needs if you are an athlete, training for a specific purpose, or on special 
-				diet due to a disease, pregnancy, or other conditions. The protein range is calculated based on 
-				the guidelines set by the American Dietetic Association (ADA), The Centers for Disease Control 
-				and Prevention (CDC), and the World Health Organization. The carbohydrate range is based on 
-				the guidelines and joint recommendations of The Institute of Medicine, The Food and Agriculture 
-				Organization and the World Health Organization. 
+				The results above are a guideline for more typical situations. Please consult with a doctor for your macronutrient needs if you are an athlete, training for a 
+				specific purpose, or on special diet due to a disease, pregnancy, or other conditions. The protein range is calculated based on the guidelines set by the 
+				American Dietetic Association (ADA), The Centers for Disease Control and Prevention (CDC), and the World Health Organization. The carbohydrate range 
+				is based on the guidelines and joint recommendations of The Institute of Medicine, The Food and Agriculture Organization and the World Health 
+				Organization.
 				""");
 		
 		// Time to Goal Tab:
+		
+		if (currentGoals.getWeightPlan() != "Maintain Weight") {
 		timeToGoalChart.getData().addAll(currentGoals.timeToGoal());
 		timeToGoalLabel.setText(currentGoals.getWeeksToGoal() + " weeks to reach " + Math.round(currentGoals.getWeightGoal()) + "lbs");
 		weightLossGoalLabel.setText("""
@@ -123,6 +123,9 @@ public class myPlanController extends FitnessTrackerController implements Initia
 				imbalance, body dysmorphia, and suicidal 
 				tendencies. 
 				""");
+		} else {
+			timeToGoalLabel.setText("You are already at your \ntarget weight :)");
+		}
 		
 	}
 
