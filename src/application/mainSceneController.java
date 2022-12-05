@@ -295,8 +295,6 @@ public class mainSceneController  {
     @FXML
     void checkProgress(ActionEvent event) throws IOException, FileNotFoundException {
     	
-    	
-    	
     	if (gender != "" && weightLossGoal != "" && activityPlan != "" && weightGoal != 0.0 && weightNow != 0.0) {  
 	    	//  Saves data from this scene to the final instance of currentGoals to communicate with the myPlan Scene
 	    	currentGoals.setCalories(this.getCalories());
@@ -307,7 +305,9 @@ public class mainSceneController  {
 	    	
 	    	// Show myPlan Scene
 	    	Parent root = FXMLLoader.load((getClass().getResource("myPlan.fxml")));
-	    	applicationStage.setScene(new Scene(root));
+	    	Scene scene = new Scene(root);
+	    	applicationStage.setScene(scene);
+	    	applicationStage.show();
     	} else if (activityPlan == "") {
     		planErrorLabel.setText("Please select your activity plan");
     	} else {

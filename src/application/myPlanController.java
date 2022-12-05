@@ -1,5 +1,6 @@
 package application;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
@@ -16,10 +17,12 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
+import javafx.scene.Node;
+
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class myPlanController extends mainSceneController implements Initializable {
-	Stage applicationStage;
+public class myPlanController extends Main implements Initializable {
 	
     @FXML
     private Label carbLabel;
@@ -67,15 +70,12 @@ public class myPlanController extends mainSceneController implements Initializab
     Goals currentGoals = Goals.getInstance();
     
     @FXML 
-    // **This Method does not work, figure out how to make a back button.
-	void goBack(ActionEvent event) throws IOException, FileNotFoundException {
-	    	// Go back to main scene
-    	Parent root = FXMLLoader.load((getClass().getResource("FitnessTracker.fxml")));
-    	applicationStage.setScene(new Scene(root)); 
-    	
+	void goBack(ActionEvent event) throws Exception {
+    	Stage mainWindow = (Stage) ((Node)event.getSource()).getScene().getWindow();
+    	Main main = new Main();
+		main.start(mainWindow);
+		this.stop();
 	    }
-    
-
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
