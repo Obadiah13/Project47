@@ -4,7 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.XYChart;
 
-public class Goals extends FitnessTrackerController {
+public class Goals {
 //Setting goals that the user has, etc, goes into this class
 	private String weightPlan;
 	private String activityPlan;
@@ -23,7 +23,6 @@ public class Goals extends FitnessTrackerController {
 		this.calories = calories;
 	}
 	
-	@Override
 	public double getCalories() {
 		return calories;
 	}
