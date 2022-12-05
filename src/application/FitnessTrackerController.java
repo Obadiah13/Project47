@@ -93,7 +93,7 @@ public class FitnessTrackerController  {
     	TextField gender = new TextField();
     	Label errorMessage5 = new Label("");
     	errorMessage5.setPadding(new Insets(5,10,5,10));
-    	gender.setMaxWidth(100);
+    	gender.setMaxWidth(117);
     	
     	//Asks user of their age
     	HBox weightContainer6 = new HBox();
@@ -102,7 +102,7 @@ public class FitnessTrackerController  {
     	TextField age = new TextField();
     	Label errorMessage6 = new Label("");
     	errorMessage6.setPadding(new Insets(5,10,5,10));
-    	HBox.setMargin(age, new Insets(0,0,0,20));
+    	HBox.setMargin(age, new Insets(0,0,0,6));
     	
     	//Asks user of their desired weight loss plan
     	HBox weightContainer = new HBox();
@@ -111,7 +111,7 @@ public class FitnessTrackerController  {
     	Label errorMessage1 = new Label("");
     	errorMessage1.setPadding(new Insets(5,10,5,10));
     	ChoiceBox<String> goalChoiceBox = new ChoiceBox<String>();
-    	HBox.setMargin(goalChoiceBox, new Insets(0,0,0,11));
+    	HBox.setMargin(goalChoiceBox, new Insets(0,0,0,9));
     	goalChoiceBox.setMaxWidth(149);
     	
     	//User has 3 choices of achieving their desired weight
@@ -126,6 +126,7 @@ public class FitnessTrackerController  {
     	TextField currentWeight = new TextField();
     	Label errorMessage2 = new Label("");
     	errorMessage2.setPadding(new Insets(5,10,5,10));
+    	currentWeight.setMaxWidth(135);
     	
     	//Asks user of their intended weight 
     	HBox intendedWeightContainer = new HBox();
@@ -134,7 +135,7 @@ public class FitnessTrackerController  {
     	TextField intendedWeight = new TextField();
     	Label errorMessage4 = new Label("");
     	errorMessage4.setPadding(new Insets(5,10,5,10));
-    	
+    	intendedWeight.setMaxWidth(150);
     	 	
     	//Asks user of their height
     	HBox weightContainer3 = new HBox();
