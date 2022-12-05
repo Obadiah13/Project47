@@ -83,8 +83,6 @@ public class Goals {
 		return randomNumber;
 	}
 	
-
-	
 	public XYChart.Series timeToGoal() {
 		weeksToGoal = Math.abs((int) (currentWeight - goalWeight));
 		int weightByWeek = (int) currentWeight;

@@ -106,23 +106,23 @@ public class myPlanController extends mainSceneController implements Initializab
 		// Time to Goal Tab:
 		
 		if (currentGoals.getWeightPlan() != "Maintain Weight") {
-		timeToGoalChart.getData().addAll(currentGoals.timeToGoal());
-		timeToGoalLabel.setText(currentGoals.getWeeksToGoal() + " weeks to reach " + Math.round(currentGoals.getWeightGoal()) + "lbs");
-		weightLossGoalLabel.setText("""
-				By following our recommended calorie and 
-				macronutrient intake and exercise plan, 
-				you will be able to reach your intended 
-				weight! 
-
-				Please note that for most people, 
-				gaining/losing more than 2 pounds per 
-				week can lead to an increased risk of 
-				issues including but not limited to 
-				metabolic syndrome, diabetes, 
-				heart disease, dehydration, electrolyte 
-				imbalance, body dysmorphia, and suicidal 
-				tendencies. 
-				""");
+			timeToGoalChart.getData().addAll(currentGoals.timeToGoal());
+			timeToGoalLabel.setText(currentGoals.getWeeksToGoal() + " weeks to reach " + Math.round(currentGoals.getWeightGoal()) + "lbs");
+			weightLossGoalLabel.setText("""
+					By following our recommended calorie and 
+					macronutrient intake and exercise plan, 
+					you will be able to reach your intended 
+					weight! 
+	
+					Please note that for most people, 
+					gaining/losing more than 2 pounds per 
+					week can lead to an increased risk of 
+					issues including but not limited to 
+					metabolic syndrome, diabetes, 
+					heart disease, dehydration, electrolyte 
+					imbalance, body dysmorphia, and suicidal 
+					tendencies. 
+					""");
 		} else {
 			timeToGoalLabel.setText("You are already at your \ntarget weight :)");
 		}
