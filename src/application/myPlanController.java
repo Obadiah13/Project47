@@ -124,11 +124,6 @@ public class myPlanController extends FitnessTrackerController implements Initia
 				tendencies. 
 				""");
 		
-		
-		
-		
-		
-		
 	}
 
 
