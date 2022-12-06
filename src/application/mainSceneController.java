@@ -18,6 +18,14 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+/**
+ * The main controller in displaying the GUI. Grabs, stores, and transfers data/references across the various classes. The goal is to
+ * make a health plan for the user has a choice to gain, loss, or maintain their weight. The instance variable BMR is key in calculating
+ * the ideal number of calories the user needs. Changing the Scene and hard coding scenes is frequently in weightGoalPlan method. Ultimately,
+ * saves all the data and transfers data/share references for the other classes and myPlan controller to use. 
+ * @author Christian Salinas 30154399
+ *
+ */
 public class mainSceneController  {
 	Stage applicationStage;
 	private String gender = "";	//Keep note of their gender
@@ -31,7 +39,11 @@ public class mainSceneController  {
     // Final instance of goals to save data and communicate between scenes
     Goals currentGoals = Goals.getInstance();
     
-    //Used for myPlanController
+    /**
+     * Calories is used when called from the mainSceneController object. Essentially, transferring the value of BMR to calories based 
+     * on the user's gender.
+     * @return The BMR based the user's gender 
+     */
 	public double getCalories() {
 		double calories = 0; 
 		if(this.gender.equalsIgnoreCase("Male")) {
@@ -45,7 +57,28 @@ public class mainSceneController  {
     @FXML
     private Label errorMessage;
     
-    //Key method in saving the user's data and choices
+    /**
+     * This method saves the user's data when it's a valid value. Check if it's valid by sending it to InputValidation class. 
+     * Then create necessary objects and send to BMRCalculation method.
+     * @param gender takes gender TextField, verifies, then initialize to appropriate variable. 
+     * @param errorGender takes the appropriate label and sends to InputValidation class. Then setText if there is an error or not.
+     * 
+     * @param age takes age TextField, verifies, then initialize to appropriate variable. 
+     * @param errorAge takes the appropriate label (age) and sends to InputValidation class. Then setText if there is an error or not.
+     * 
+     * @param goal takes goal weight ChoiceBox, verifies, then initialize to appropriate variable. 
+     * @param error1 takes the appropriate label (goal weight choiceBox) and sends to InputValidation class. Then setText if there is an error or not.
+     * 
+     * @param current takes current weight TextField, verifies, then initialize to appropriate variable. 
+     * @param error2 takes the appropriate label (current weight)and sends to InputValidation class. Then setText if there is an error or not.
+     * 
+     * @param heightFt takes height feet TextField, verifies, then initialize to appropriate variable. 
+     * @param heightIn takes height inches TextField, verifies, then initialize to appropriate variable. 
+     * @param error3 takes the appropriate label (height in feet and inches) and sends to InputValidation class. Then setText if there is an error or not.
+     * 
+     * @param goalTextField takes goal weight TextField, verifies, then initialize to appropriate variable. 
+     * @param error4 takes the appropriate label (goal weight in textField) and sends to InputValidation class. Then setText if there is an error or not.
+     */
     void sendToGoal(TextField gender, Label errorGender, TextField age, Label errorAge, ChoiceBox<String> goal, Label error1, 
     		TextField current, Label error2, TextField heightFt, TextField heightIn, Label error3, TextField goalTextField, Label error4) {
     	
@@ -105,7 +138,12 @@ public class mainSceneController  {
     	}
     	System.out.println("Saved user's Data");
     }
-
+    
+    /**
+     * When the set Goals button is clicked, create a hard coded scene to invoke user of varies questions. Then sends to sendToGoal 
+     * to save their choices.
+     * @param event method is used when the user clicks the button in the main scene.
+     */
     @FXML
     void weightGoalPlan(ActionEvent event) {
     	errorMessage.setText("");
@@ -188,7 +226,7 @@ public class mainSceneController  {
     	Button done = new Button("Done");
     	send.setOnAction(doneEvent -> {sendToGoal(gender,errorMessage5,age,errorMessage6,goalChoiceBox,errorMessage1,
     										currentWeight,errorMessage2,heightFT,heightIN,errorMessage3,intendedWeight,errorMessage4);
-                        
+        
     	weightLossGoal = goalChoiceBox.getValue();
     	weightGoal = Double.parseDouble(intendedWeight.getText());
     	weightNow = Double.parseDouble(currentWeight.getText());
@@ -218,7 +256,11 @@ public class mainSceneController  {
     	Scene weightScene = new Scene(weightVBox);
     	applicationStage.setScene(weightScene);
     }
-        
+    
+    /**
+     * This is a hard coded scene, that invokes the user of their activity level. Then sends their choice to saveExercise method    
+     * @param event method is used when the user clicks the button in the main scene.
+     */
     @FXML /*Invokes user of their exercise/activity habits*/
 	void excercisePlan(ActionEvent event) {
     	Scene mainScene = applicationStage.getScene();
@@ -261,6 +303,11 @@ public class mainSceneController  {
     	applicationStage.setScene(excerciseScene);
 	}
     
+    /**
+     * Saves the user's activity choice, creates an Exercise object, sends their activity level to BMRCalculation2 method.
+     * @param userChoice obtains the user's activity level 
+     * @param choiceLabel notifies the user that their choice is saved
+     */
     void saveExercise(ChoiceBox<String> userChoice, Label choiceLabel) {
     	//Saves the user's activity choice and sends that data to required class and method
     	String choice = userChoice.getValue();
@@ -270,6 +317,15 @@ public class mainSceneController  {
     	choiceLabel.setText("Activity Choice Saved"); //Notifies user that their activity choice is saved
     }
     
+    /**
+     * Calculates the user's BMR with the given parameters.
+     * @param userGoal grabs a reference of the Goals given object
+     * @param stepExercise grabs a reference of the Exercise given object
+     * @param gender obtain the user's gender
+     * @param age obtain the user's age
+     * @param heightFeet obtain the user's height feet
+     * @param heightInches obtain the user's height inches
+     */
     protected void BMRCalculation(Goals userGoal, Exercise stepExercise, String gender, int age, double heightFeet, double heightInches) {
     	//Initialize and declare necessary variables for the BMR 
     	String thierGoalWeight = userGoal.getWeightPlan();
@@ -304,6 +360,10 @@ public class mainSceneController  {
     	}
     }  
     
+    /**
+     * This method accounts for the user's activity level for the appropriate BMR. Each activity level has an specific multiply factor.
+     * @param choice holds a reference of the Exercise given object
+     */
     protected void BMRCalculation2(Exercise choice) {
     	//Grabs the user activity choice from Exercise class
     	String thierChoice = choice.getUserChoice();
@@ -331,6 +391,12 @@ public class mainSceneController  {
     @FXML
     private Label planErrorLabel;
     
+    /**
+     * Takes all the necessary data from this scene then gives it a reference towards the myPlanController. Then show the myPlan fxml file.
+     * @param event event method is used when the user clicks the button in the main scene.
+     * @throws IOException throws exception when error has occurred.
+     * @throws FileNotFoundException throws exception when error has occurred.
+     */
     @FXML
     void checkProgress(ActionEvent event) throws IOException, FileNotFoundException {
     	
