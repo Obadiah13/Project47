@@ -30,7 +30,8 @@ public class mainSceneController  {
     
     // Final instance of goals to save data and communicate between scenes
     Goals currentGoals = Goals.getInstance();
-
+    
+    //Used for myPlanController
 	public double getCalories() {
 		double calories = 0; 
 		if(this.gender.equalsIgnoreCase("Male")) {
@@ -44,6 +45,7 @@ public class mainSceneController  {
     @FXML
     private Label errorMessage;
     
+    //Key method in saving the user's data and choices
     void sendToGoal(TextField gender, Label errorGender, TextField age, Label errorAge, ChoiceBox<String> goal, Label error1, 
     		TextField current, Label error2, TextField heightFt, TextField heightIn, Label error3, TextField goalTextField, Label error4) {
     	
@@ -54,18 +56,9 @@ public class mainSceneController  {
     	error2.setText("");
     	error3.setText("");
     	
-    	//Required Data for the other methods like BMR
-
-// 		String genderString = gender.getText();
-//    	int ageValue = Integer.parseInt(age.getText());
-//    	String goalValue = goal.getValue();
-//    	double currentValue = Double.parseDouble(current.getText());
-//    	double heightValueFT = Double.parseDouble(heightFt.getText());
-//    	double heightValueIN = Double.parseDouble(heightIn.getText());
-    	
-    	InputValidation a = new InputValidation();
+    	//Declare and initialize variables 
+    	InputValidation valid = new InputValidation();
         String genderString = "";
-        //String ageString = "";
         int ageValue = 0;
         double currentValue = 0.0;
         String goalChoiceBox = goal.getValue(); //Since ChoiceBox does not need validation
@@ -73,41 +66,42 @@ public class mainSceneController  {
         double heightValueFT = 0.0;
         double heightValueIN = 0.0;
     	
-        // call set age, if true set get age.getText valid string // requires test when goals userGoal error resolved
-        if(a.setAge(age, errorAge) == true) {
+        // call set age, if true set get age.getText valid string
+        if(valid.setAge(age, errorAge) == true) {
             ageValue = Integer.parseInt(age.getText());
         }
         
-        // call set gender, if true set get gender.getText valid string // good
-        if(a.setGender(gender, errorGender) == true) {
+        // call set gender, if true set get gender.getText valid string
+        if(valid.setGender(gender, errorGender) == true) {
             genderString = gender.getText();
         }
         
-        // call setCurrentWeight, if true set get current.getText valid string // good
-        if(a.setCurrentWeight(current, error2) == true) {
+        // call setCurrentWeight, if true set get current.getText valid double
+        if(valid.setCurrentWeight(current, error2) == true) {
             currentValue = Double.parseDouble(current.getText());
         }
         
-        if(a.setGoalWeight(goalTextField, error4) == true) {
+        // call setGoalWeight, if true set get goalTextField.getText valid double
+        if(valid.setGoalWeight(goalTextField, error4) == true) {
             goalValue = Double.parseDouble(goalTextField.getText());
-       }
+        }
         
-        if(a.setHeight(heightFt, heightIn, error3)) {
+        // call setHeight, if true set get heightValueFT.getText and heightValueIN valid double
+        if(valid.setHeight(heightFt, heightIn, error3)) {
             heightValueFT = Double.parseDouble(heightFt.getText());
             heightValueIN = Double.parseDouble(heightIn.getText());
         }
     
-    	//Send required data to Goals class and send to BMRCalculation method
+    	//Send required data to Goals class Object, Exercise class Object, and BMRCalculation method
     	Goals userGoal = new Goals(goalChoiceBox,currentValue);
-    	BMRCalculation(userGoal, genderString, ageValue, heightValueFT, heightValueIN); 
+    	Exercise steps = new Exercise(currentValue,heightValueFT,heightValueIN);
+    	BMRCalculation(userGoal,steps,genderString,ageValue,heightValueFT,heightValueIN); 
     	
     	//Keep note of the user choice on what gender they are
     	if(genderString.equalsIgnoreCase("Male")) {
     		this.gender = genderString;
-    		System.out.println(this.gender);
     	} else if(genderString.equalsIgnoreCase("Female")) {
     		this.gender = genderString;
-    		System.out.println(this.gender);
     	}
     	System.out.println("Saved user's Data");
     }
@@ -128,7 +122,7 @@ public class mainSceneController  {
     	TextField gender = new TextField();
     	Label errorMessage5 = new Label("");
     	errorMessage5.setPadding(new Insets(5,10,5,10));
-    	gender.setMaxWidth(88);
+    	gender.setMaxWidth(117);
     	
     	//Asks user of their age
     	HBox weightContainer6 = new HBox();
@@ -137,17 +131,17 @@ public class mainSceneController  {
     	TextField age = new TextField();
     	Label errorMessage6 = new Label("");
     	errorMessage6.setPadding(new Insets(5,10,5,10));
-    	HBox.setMargin(age, new Insets(0,0,0,20));
+    	HBox.setMargin(age, new Insets(0,0,0,6));
     	
     	//Asks user of their desired weight loss plan
     	HBox weightContainer = new HBox();
-    	Label weightLabel1 = new Label("What is your weight loss plan?");
-    	weightLabel1.setPadding(new Insets(5,10,5,10));
+    	Label weightLabel1 = new Label("What is your weight plan?");
+    	weightLabel1.setPadding(new Insets(5,2,5,10));
     	Label errorMessage1 = new Label("");
     	errorMessage1.setPadding(new Insets(5,10,5,10));
     	ChoiceBox<String> goalChoiceBox = new ChoiceBox<String>();
-    	HBox.setMargin(goalChoiceBox, new Insets(0,0,0,11));
-    	goalChoiceBox.setMaxWidth(149);
+    	HBox.setMargin(goalChoiceBox, new Insets(0,0,0,9));
+    	goalChoiceBox.setMaxWidth(181);
     	
     	//User has 3 choices of achieving their desired weight
     	goalChoiceBox.getItems().add("Maintain Weight");
@@ -161,6 +155,7 @@ public class mainSceneController  {
     	TextField currentWeight = new TextField();
     	Label errorMessage2 = new Label("");
     	errorMessage2.setPadding(new Insets(5,10,5,10));
+    	currentWeight.setMaxWidth(135);
     	
     	//Asks user of their intended weight 
     	HBox intendedWeightContainer = new HBox();
@@ -169,6 +164,7 @@ public class mainSceneController  {
     	TextField intendedWeight = new TextField();
     	Label errorMessage4 = new Label("");
     	errorMessage4.setPadding(new Insets(5,10,5,10));
+    	intendedWeight.setMaxWidth(150);
     	
     	 	
     	//Asks user of their height
@@ -274,7 +270,7 @@ public class mainSceneController  {
     	choiceLabel.setText("Activity Choice Saved"); //Notifies user that their activity choice is saved
     }
     
-    protected void BMRCalculation(Goals userGoal, String gender, int age, double heightFeet, double heightInches) {
+    protected void BMRCalculation(Goals userGoal, Exercise stepExercise, String gender, int age, double heightFeet, double heightInches) {
     	//Initialize and declare necessary variables for the BMR 
     	String thierGoalWeight = userGoal.getWeightPlan();
     	double totalHeightft = heightFeet + (heightInches*0.0833333);
@@ -298,6 +294,13 @@ public class mainSceneController  {
     		BMRF = BMRF + 500;
     	} else if(thierGoalWeight.equalsIgnoreCase("Maintain Weight")) { //If they want to maintain weight, then BMR remains unchanged
     		System.out.println("BMR remains unchanged");
+    	}
+    	
+    	//Subtract by calculateNumberOfSteps()
+    	if(this.gender.equalsIgnoreCase("Male")) {
+    		BMRM = BMRM - stepExercise.calculateNumberOfSteps();
+    	} else if(this.gender.equalsIgnoreCase("Female")) {
+    		BMRF = BMRF - stepExercise.calculateNumberOfSteps();
     	}
     }  
     

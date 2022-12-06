@@ -4,6 +4,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.XYChart;
 
+/**
+ * Stores and saves the numerous data from the mainSceneController throught setters and getters. 
+ * Contains conversion and random number methods. Lastly creates a graph of the user's weight loss or weight gain journey. 
+ * @author Christian Salinas 30154399
+ *
+ */
 public class Goals {
 //Setting goals that the user has, etc, goes into this class
 	private String weightPlan;
@@ -14,11 +20,24 @@ public class Goals {
 	private double calories = 0.0;
 	private static final Goals instance = new Goals();
 	
-	// Getters and Setters
+	public Goals(String goalValue, double currentValue) {
+		weightPlan = goalValue;
+		currentWeight = currentValue;
+	}
+	
+	public Goals() {
+		
+	}
+	
+	
+	/**
+	 * Getters and Setters of each instance variables
+	 * @return
+	 */
 	public static Goals getInstance() {
 		return instance;
 	}
-
+	
 	public void setCalories(double calories) {
 		this.calories = calories;
 	}
@@ -62,27 +81,29 @@ public class Goals {
 	public String getActivityPlan() {
 		return activityPlan;
 	}
-
-	public Goals(String goalValue, double currentValue) {
-		weightPlan = goalValue;
-		currentWeight = currentValue;
-	}
 	
-	public Goals() {
-		
-	}
-	
-	
+	/**
+	 * Grabs the user's currentWeight and converts to kg
+	 * @return currentWeight in kg
+	 */
 	public double CurrentWeightKg() {
 		double currentWeightKg = currentWeight*0.453592;
 		return currentWeightKg;
 	}
 	
+	/**
+	 * Creates a random number between 10%-20% (0.01-0.02)
+	 * @return a random number between 10%-20% (0.01-0.02)
+	 */
 	public double getRandomNumber() {
 		double randomNumber = (Math.random() * (0.02 - 0.01)) + 0.01;
 		return randomNumber;
 	}
 	
+	/**
+	 * Creates and plots data points of the user's weight loss or weight gain journey to display on a graph. Utilizes currentWeight and goalWeight. 
+	 * @return a graph using currentWeigh, goalWeight,and XYChart.Series
+	 */
 	public XYChart.Series timeToGoal() {
 		weeksToGoal = Math.abs((int) (currentWeight - goalWeight));
 		int weightByWeek = (int) currentWeight;

@@ -2,7 +2,6 @@ package application;
 
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-// import javafx.scene.control.TextField;
 
 public class InputValidation {
 
@@ -39,7 +38,6 @@ public class InputValidation {
         return valid;
     }
 
-    // still good
     public boolean setGender(TextField g, Label errorGender) {
         String gender = g.getText();
 
@@ -49,11 +47,11 @@ public class InputValidation {
         } else {
             errorGender.setText("");
             valid = true;
-            // no scanners for textfields fix in other methods
+           
         }
     return valid;
     }
-    // still good
+    
     public boolean setCurrentWeight(TextField c, Label errorCurrentWeight) {
         String currentWeight = c.getText();
         int decimalCount = 0;
@@ -73,7 +71,6 @@ public class InputValidation {
         return valid;
     }
     
-      // duplicate code above for goalValue //////////////////////////////////////////////////////////////////////// NOT good
     public boolean setGoalWeight(TextField d, Label errorGoalWeight) {
         String goalWeight = d.getText();
         int decimalCount = 0;
