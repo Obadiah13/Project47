@@ -1,7 +1,8 @@
 package application;
 
 /**
- * Stores the user activity level and calculates an estimate of calories burned. Called as an object by mainSceneController
+ * Stores the user activity level and calculates an estimate of calories burned through an estimate number of steps. 
+ * Called as an object by mainSceneController.
  * @author Christian Salinas 30154399
  *
  */
@@ -33,7 +34,7 @@ public class Exercise {
 	}
 	
 	/**
-	 * When called, simply retrun the user's activity level. A getter of userChoice.
+	 * When called, simply return the user's activity level. A getter of userChoice.
 	 * @return the user's activity level when the method is called
 	 */
 	public String getUserChoice() {

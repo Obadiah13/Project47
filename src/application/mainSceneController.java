@@ -22,7 +22,7 @@ import javafx.stage.Stage;
  * The main controller in displaying the GUI. Grabs, stores, and transfers data/references across the various classes. The goal is to
  * make a health plan for the user has a choice to gain, loss, or maintain their weight. The instance variable BMR is key in calculating
  * the ideal number of calories the user needs. Changing the Scene and hard coding scenes is frequently in weightGoalPlan method. Ultimately,
- * saves all the data and transfers data/share references for the other classes and myPlan controller to use. 
+ * grabs all the data and transfers data/share references for the other classes to save the data in their class, mainly Goals. 
  * @author Christian Salinas 30154399
  *
  */

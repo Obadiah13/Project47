@@ -5,8 +5,9 @@ import javafx.collections.ObservableList;
 import javafx.scene.chart.XYChart;
 
 /**
- * Stores and saves the numerous data from the mainSceneController throught setters and getters. 
- * Contains conversion and random number methods. Lastly creates a graph of the user's weight loss or weight gain journey. 
+ * Stores and saves the numerous data from the mainSceneController through setters and getters. Final instance lets myPlanController 
+ * uses the getters. Contains conversion and random number methods. Lastly creates a graph of the user's weight loss or weight gain 
+ * journey. 
  * @author Christian Salinas 30154399
  *
  */
