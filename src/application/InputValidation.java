@@ -15,7 +15,7 @@ public class InputValidation {
      */
     public boolean setAge(TextField a, Label errorAge) {
         String currentAge = a.getText();
-        int tracker = 0; // tracker
+        int tracker = 0;
         
             for(char b : currentAge.toCharArray()) {
                 if (b == '.') {
