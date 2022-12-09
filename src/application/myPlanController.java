@@ -22,6 +22,12 @@ import javafx.scene.Node;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+/**
+ * This controller displays the health plan towards the user, the last step in the program. Utilizes the Goals and Nutrition class 
+ * to output the apporiate data. This controller is linked with the myPlan.fxml. This extends to Main.java and implements to initializable. 
+ * @author Ammaar
+ *
+ */
 public class myPlanController extends Main implements Initializable {
 	
     @FXML
@@ -69,6 +75,11 @@ public class myPlanController extends Main implements Initializable {
     // Gets final instance of goals (data collected from the main scene)
     Goals currentGoals = Goals.getInstance();
     
+    /**
+     * This button transitions back to the mainScene.fxml to restart the whole program again. 
+     * @param event notifies when the button is clicked 
+     * @throws Exception checks when an errors has occured
+     */
     @FXML
 	  void goBack(ActionEvent event) throws Exception {
       Stage mainWindow = (Stage) ((Node)event.getSource()).getScene().getWindow();
@@ -77,6 +88,10 @@ public class myPlanController extends Main implements Initializable {
 		  this.stop();
     }
 
+    /**
+     * The main method that displays all the required data in the myPlan.fxml. Calls the Goals class getters, setTexts of all the labels accordingly,
+     * and displays the graph from Goals class in an organized fashion. 
+     */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		

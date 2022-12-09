@@ -3,6 +3,11 @@ package application;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
+/**
+ * Validates the user's inputs before intializing to the apporiate variables. 
+ * @author Darren Cheng 30143628
+ *
+ */
 public class InputValidation {
 
     boolean valid;
