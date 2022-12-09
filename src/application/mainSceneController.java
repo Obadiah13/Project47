@@ -393,6 +393,11 @@ public class mainSceneController  {
     
     /**
      * Takes all the necessary data from this scene then gives it a reference towards the myPlanController. Then show the myPlan fxml file.
+     * Experimented with different ways to switch between scenes and FXML files and found a video by channel Random Code on youtube https://www.youtube.com/watch?v=J9OcQfu3O7A&t=269s 
+     * which had a preferable implementation.
+     * 
+     * @author Ammaar Melethil (30141956)
+     * 
      * @param event event method is used when the user clicks the button in the main scene.
      * @throws IOException throws exception when error has occurred.
      * @throws FileNotFoundException throws exception when error has occurred.
@@ -401,7 +406,7 @@ public class mainSceneController  {
     void checkProgress(ActionEvent event) throws IOException, FileNotFoundException {
     	
     	if (gender != "" && weightLossGoal != "" && activityPlan != "" && weightGoal != 0.0 && weightNow != 0.0) {  
-	    	//  Saves data from this scene to the final instance of currentGoals to communicate with the myPlan Scene
+	    	//  Saves data from this scene to the final instance of currentGoals for the myPlanController to use.
 	    	currentGoals.setCalories(this.getCalories());
 	    	currentGoals.setCurrentWeight(weightNow);
 	    	currentGoals.setWeightPlan(weightLossGoal);

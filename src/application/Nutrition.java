@@ -1,9 +1,9 @@
 package application;
 
 /**
- * An interface class that uses the parameters int their respective methods to calculate either carbohydrates, protein, and fats. This class is used
+ * An interface that contains methods to calculate either carbohydrates, protein, and fats. This class is used
  * in myPlan Controller. 
- * @author Ammaar 
+ * @author Ammaar Melethil (30141956)
  */
 public interface Nutrition {
 	

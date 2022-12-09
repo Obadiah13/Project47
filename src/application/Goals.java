@@ -8,6 +8,9 @@ import javafx.scene.chart.XYChart;
  * Stores and saves the numerous data from the mainSceneController through setters and getters. Final instance lets myPlanController 
  * uses the getters. Contains conversion and random number methods. Lastly creates a graph of the user's weight loss or weight gain 
  * journey. 
+ * 
+ * Idea of saving data to a final instance of Goals was inspired by the YouTube channel Random Code: https://www.youtube.com/watch?v=MsgiJdf5njc&t=28s.
+ * 
  * @author Christian Salinas 30154399
  *
  */
@@ -102,13 +105,20 @@ public class Goals {
 	}
 	
 	/**
-	 * Creates and plots data points of the user's weight loss or weight gain journey to display on a graph. Utilizes currentWeight and goalWeight. 
-	 * @return a graph using currentWeigh, goalWeight,and XYChart.Series
+	 * Creates and plots data points of the user's weight loss or weight gain journey to display on a graph. Utilizes instance variables currentWeight, 
+	 * goalWeight, weeksToGoal and local variables weightByWeek, series.
+	 * 
+	 * Learned the fundamentals of creating a LineChart from YouTube channel Cool IT Help: https://www.youtube.com/watch?v=0_TeHv2Q1PI. 
+	 * 
+	 * @author Ammaar Melethil 30141956 
+	 * @return a XYChart.Seires (series) that can be called on an instance of a Goals object (as long as the required instance variables have been set).
 	 */
 	public XYChart.Series timeToGoal() {
 		weeksToGoal = Math.abs((int) (currentWeight - goalWeight));
 		int weightByWeek = (int) currentWeight;
-
+		
+		
+		// ObservableList which loop adds formatted chart data to. 
 		ObservableList<XYChart.Data<String, Integer>> data = FXCollections.<XYChart.Data<String, Integer>>observableArrayList();
 		
 		if (weightPlan == "Weight loss of 1 Ibs (0.5kg) per week") {
@@ -122,6 +132,8 @@ public class Goals {
 				weightByWeek++;
 			}
 		}
+		
+		// Data from observable list passed into instance of XY.Chart.Series series.
 		XYChart.Series series = new XYChart.Series(data);
 		series.setName("Goal weight per week");
 		return series;
