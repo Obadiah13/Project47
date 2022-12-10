@@ -1,8 +1,11 @@
 package application;
 
 /**
- * An interface that contains methods to calculate either carbohydrates, protein, and fats. This class is used
- * in myPlan Controller. 
+ * An interface that contains methods to calculate either carbohydrates, protein, and fats. This class is used in myPlanController. 
+ * 
+ * Calculations of nutrient intakes are based on guidelines set by American Dietetic Association (ADA), The Centers for Disease Control and Prevention (CDC), 
+ * The Institute of Medicine, The Food and Agriculture Organization and the World Health Organization.
+ * 
  * @author Ammaar Melethil (30141956)
  */
 public interface Nutrition {

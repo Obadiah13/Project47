@@ -23,6 +23,11 @@ import javafx.stage.Stage;
  * make a health plan for the user has a choice to gain, loss, or maintain their weight. The instance variable BMR is key in calculating
  * the ideal number of calories the user needs. Changing the Scene and hard coding scenes is frequently in weightGoalPlan method. Ultimately,
  * grabs all the data and transfers data/share references for the other classes to save the data in their class, mainly Goals. 
+ * 
+ * Calculations of calorie intakes are based on the Mifflin St Jeor Equation for BMR (Basal Metabolic Rate) and then adjusted to either males 
+ * or females (BMRM || BMRF).
+
+ * 
  * @author Christian Salinas 30154399
  *
  */
